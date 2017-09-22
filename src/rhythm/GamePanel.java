@@ -27,7 +27,6 @@ public class GamePanel extends JPanel {
 	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/backButtonBasic.png"));
 	private JButton backButton = new JButton(backButtonBasicImage);
 
-	private Image background = new ImageIcon(Main.class.getResource("../images/backGround.png")).getImage();
 
 	public GamePanel(RhythmTyping rhythmTyping) {
 		frame = rhythmTyping;

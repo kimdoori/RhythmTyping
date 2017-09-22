@@ -25,14 +25,14 @@ public class StartPanel extends JPanel {
 		private JButton quitButton = new JButton(quitButtonBasicImage);
 
 		// how버튼에 넣을 이미지
-		private ImageIcon howButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/quitButtonEntered.png"));
-		private ImageIcon howButtonBasicImage = new ImageIcon(Main.class.getResource("../images/quitButtonBasic.png"));
+		private ImageIcon howButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/howButtonEntered.png"));
+		private ImageIcon howButtonBasicImage = new ImageIcon(Main.class.getResource("../images/howButtonBasic.png"));
 		// how버튼
 		private JButton howButton = new JButton(howButtonBasicImage);
 
 		// record버튼에 넣을 이미지
-		private ImageIcon recordButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/quitButtonEntered.png"));
-		private ImageIcon recordButtonBasicImage = new ImageIcon(Main.class.getResource("../images/quitButtonBasic.png"));
+		private ImageIcon recordButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/recordButtonEntered.png"));
+		private ImageIcon recordButtonBasicImage = new ImageIcon(Main.class.getResource("../images/recordButtonBasic.png"));
 		// record버튼
 		private JButton recordButton = new JButton(recordButtonBasicImage);
 
@@ -44,7 +44,7 @@ public class StartPanel extends JPanel {
 		setBackground(new Color(255, 0, 0, 0));
 		setBounds(0, 30,Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT-30);
 		
-		startButton.setBounds(40, 200, 400, 100);
+		startButton.setBounds(440, 450, 400, 100);
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);
 		startButton.setFocusPainted(false);
@@ -82,34 +82,34 @@ public class StartPanel extends JPanel {
 		
 
 
-		quitButton.setBounds(40, 330, 400, 100);
-		quitButton.setBorderPainted(false);
-		quitButton.setContentAreaFilled(false);
-		quitButton.setFocusPainted(false);
-		quitButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {// 마우스가 올라왔을 때 실행
-				quitButton.setIcon(quitButtonEnteredImage);
-				// 버튼위에 마우스가 올라가면 손 모양으로 바뀜
-				quitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {// 해당 버튼에서 마우스가 나왔을 때
-				quitButton.setIcon(quitButtonBasicImage);
-				// 마우스가 버튼에서 벗어나면 원래 모양으로 바뀜
-				quitButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
-				System.exit(0);
-			}
-
-		});
-		add(quitButton);
+//		quitButton.setBounds(40, 330, 400, 100);
+//		quitButton.setBorderPainted(false);
+//		quitButton.setContentAreaFilled(false);
+//		quitButton.setFocusPainted(false);
+//		quitButton.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseEntered(MouseEvent e) {// 마우스가 올라왔을 때 실행
+//				quitButton.setIcon(quitButtonEnteredImage);
+//				// 버튼위에 마우스가 올라가면 손 모양으로 바뀜
+//				quitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//			}
+//
+//			@Override
+//			public void mouseExited(MouseEvent e) {// 해당 버튼에서 마우스가 나왔을 때
+//				quitButton.setIcon(quitButtonBasicImage);
+//				// 마우스가 버튼에서 벗어나면 원래 모양으로 바뀜
+//				quitButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+//			}
+//
+//			@Override
+//			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
+//				System.exit(0);
+//			}
+//
+//		});
+//		add(quitButton);
 		
-		howButton.setBounds(470, 200, 400, 100);
+		howButton.setBounds(440, 310, 260, 100);
 		howButton.setBorderPainted(false);
 		howButton.setContentAreaFilled(false);
 		howButton.setFocusPainted(false);
@@ -136,7 +136,7 @@ public class StartPanel extends JPanel {
 		});
 		add(howButton);
 		
-		recordButton.setBounds(470, 330, 400, 100);
+		recordButton.setBounds(740, 310, 100, 100);
 		recordButton.setBorderPainted(false);
 		recordButton.setContentAreaFilled(false);
 		recordButton.setFocusPainted(false);

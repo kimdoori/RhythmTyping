@@ -10,85 +10,23 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import javax.swing.JScrollPane;
 
 public class RhythmTyping extends JFrame implements KeyListener {
-	 @Override
-	    public void keyPressed(KeyEvent e) 
-	    {
-//			APEACH
-//			CON
-//			FRODO
-//			JAY-G
-//			NEO
-//			MUZI
-//			RYAN
-//			TUBE
-
-	        if (RhythmTyping.game == null) {
-				return;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_A) {
-				RhythmTyping.game.pressA();
-			} else if (e.getKeyCode() == KeyEvent.VK_C) {
-				RhythmTyping.game.pressC();
-			} else if (e.getKeyCode() == KeyEvent.VK_F) {
-				RhythmTyping.game.pressF();
-			} else if (e.getKeyCode() == KeyEvent.VK_J) {
-				RhythmTyping.game.pressJ();
-			} else if (e.getKeyCode() == KeyEvent.VK_N) {
-				RhythmTyping.game.pressN();
-			} else if (e.getKeyCode() == KeyEvent.VK_M) {
-				RhythmTyping.game.pressM();
-			} else if (e.getKeyCode() == KeyEvent.VK_R) {
-				RhythmTyping.game.pressR();
-			}else if (e.getKeyCode() == KeyEvent.VK_T) {
-				RhythmTyping.game.pressT();
-			}
-	    }
-	    @Override
-	    public void keyReleased(KeyEvent e) 
-	    {
-	    	if (RhythmTyping.game == null) {
-				return;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_A) {
-				RhythmTyping.game.releaseA();	
-			} else if (e.getKeyCode() == KeyEvent.VK_C) {
-				RhythmTyping.game.releaseC();
-			} else if (e.getKeyCode() == KeyEvent.VK_F) {
-				RhythmTyping.game.releaseF();
-			} else if (e.getKeyCode() == KeyEvent.VK_J) {
-				RhythmTyping.game.releaseJ();
-			} else if (e.getKeyCode() == KeyEvent.VK_N) {
-				RhythmTyping.game.releaseN();
-			} else if (e.getKeyCode() == KeyEvent.VK_M) {
-				RhythmTyping.game.releaseM();
-			} else if (e.getKeyCode() == KeyEvent.VK_R) {
-				RhythmTyping.game.releaseR();
-			}else if (e.getKeyCode() == KeyEvent.VK_T) {
-				RhythmTyping.game.releaseT();
-			}
-	    }
-	    @Override
-	    public void keyTyped(KeyEvent e) 
-	    {
-	    	
-	    }
-	 
 
 	// 더블버퍼링
 	private Image screenImage;
 	private Graphics screenGraphic;
 
 	// background 이미지
-	private Image background = new ImageIcon(Main.class.getResource("../images/backGround.png")).getImage();
+	public static Image background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();
 
 	// menuBar
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
@@ -101,6 +39,11 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	private int mouseX, mouseY;
 
 	private JPanel nowPanel;
+	
+	private JScrollPane nowScrollPanel;
+	
+	
+	
 
 	public static boolean isMainScreen;
 
@@ -111,12 +54,27 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	public SelectMusicPanel selectMusicPanel;
 
 	public GamePanel gamePanel;
+	
+	public SelectMusicPanel selectPanel;
 
 	public static Game game;
 
-	public RhythmTyping() {
+	ArrayList<Track> trackList = new ArrayList<Track>();
+	private int nowSelected = 0;
 
-		//addKeyListener(new KeyListener());
+	Music introMusic = new Music("introMusic.mp3", true);
+
+	public static String input = "";
+
+	public RhythmTyping() {
+		trackList.add(new Track("무제 Title image.png", "강남스타일startImage.jpg", "강남스타일gameImage.jpg", "PSY-강남스타일.mp3",
+				"PSY-강남스타일.mp3", "강남스타일"));
+		trackList.add(new Track("무제 Title image.png", "무제startImage.jpg", "무제gameImage.jpg", "G-DRAGON-무제.mp3",
+				"G-DRAGON-무제.mp3", "무제"));
+
+		introMusic.start();
+
+		// addKeyListener(new KeyListener());
 		exitButton.setBounds(1245, 0, 30, 30);
 		exitButton.setBorderPainted(false);
 		exitButton.setContentAreaFilled(false);
@@ -207,6 +165,9 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			selectMusicPanel.screenDraw(g);
 
 		} else if (isGameScreen) {
+			if(Game.gameMusic.getTime()<1)
+			background = new ImageIcon(Main.class.getResource("../images/backGround1.jpg")).getImage();
+
 			game.screenDraw(g);
 
 		} else if (isMainScreen) {
@@ -242,14 +203,15 @@ public class RhythmTyping extends JFrame implements KeyListener {
 		} else if (panelName.equals("selectMusicPanel")) {
 			getContentPane().remove(nowPanel);
 			selectMusicPanel = new SelectMusicPanel(this);
-			nowPanel = selectMusicPanel;
+			nowPanel = null;
+			nowScrollPanel= selectMusicPanel;
 			isSelectScreen = true;
 			isGameScreen = false;
 			isMainScreen = false;
-			getContentPane().add(nowPanel);
+			getContentPane().add(nowScrollPanel);
 
 		} else if (panelName.equals("gamePanel")) {
-			getContentPane().remove(nowPanel);
+			getContentPane().remove(nowScrollPanel);
 			gamePanel = new GamePanel(this);
 			nowPanel = gamePanel;
 			isGameScreen = true;
@@ -265,11 +227,45 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	public void gameStart(int nowSelected, String difficulty) {
 		isMainScreen = false;
 		isGameScreen = true;
-		game = new Game("강남스타일", "Easy", "PSY-강남스타일.mp3");
+		game = new Game(trackList.get(nowSelected).getTitleName(), difficulty,
+				trackList.get(nowSelected).getGameMusic());
 		game.start();
 		// 키보드이벤트가 항상 정확히 캐치할 수 있게
 		setFocusable(true);
 
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// APEACH
+		// CON
+		// FRODO
+		// JAY-G
+		// NEO
+		// MUZI
+		// RYAN
+		// TUBE
+
+		if (RhythmTyping.game == null) {
+			return;
+		}
+		input += e.getKeyText(e.getKeyCode());
+		RhythmTyping.game.press();
+		System.out.println(input);
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (RhythmTyping.game == null) {
+			return;
+		}
+		RhythmTyping.game.release();
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
 
 	}
 

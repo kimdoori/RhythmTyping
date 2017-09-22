@@ -13,11 +13,19 @@ public class Note extends Thread {
 	// 580 //1초후에 닿음
 
 	private String noteType;
+	private String type;
+	
 
 	private boolean proceeded = true;// 현재노트의 진행여부
+	
+
 
 	public String getNoteType() {
 		return noteType;
+
+	}
+	public String getType() {
+		return type;
 
 	}
 
@@ -34,27 +42,25 @@ public class Note extends Thread {
 		this.proceeded = proceeded;
 	}
 
-	public Note(String noteType) {
-		y=400;
+	public Note(String type,String noteType) {
+		y=500;
+		this.type=type;
 		this.noteType = noteType;
+		noteBasicImage = new ImageIcon(Main.class.getResource("../images/note"+noteType+".png")).getImage();
 	}
 
 	// 화면에 그리기
 	public void screenDraw(Graphics2D g) {
-		if (!noteType.equals("Space")) {
 			g.drawImage(noteBasicImage, x, y, null);
-		} else {
-			g.drawImage(noteBasicImage, x, y, null);
-			g.drawImage(noteBasicImage, x + 100, y, null);
-
-		}
 	}
 
 	// 노트가 떨어지는 함수
 	public void drop() {
 		x += Main.NOTE_SPEED;
+		
 		// miss에 대한 판정
-		if (x > 980) {
+		if (x > 1120) {
+			RhythmTyping.input="";
 			System.out.println("Miss");
 			close();
 		}
@@ -64,12 +70,13 @@ public class Note extends Thread {
 	public void run() {
 		try {
 			while (true) {
+				
 				// 1초에 700픽셀만큼 y좌표가 아래로 내려간다.
 				drop();
-
 				// 현재 노트가 계속해서 움직이고 있는 상황이라면
 				if (proceeded) {
 					Thread.sleep(Main.SLEEP_TIME);
+
 				} else {
 					interrupt();
 					break;
@@ -84,45 +91,52 @@ public class Note extends Thread {
 	}
 
 	public String judge() {
-		if (y >= 613) {
+
+		if (x > 1100) {
 			System.out.println("Late");
 			close();
 			return "Late";
-		} else if (y >= 600) {
+		} else if (x >= 1080) {
 			System.out.println("Good");
 			close();
+			Game.score+=100;
 			return "Good";
 
-		} else if (y >= 587) {
+		} else if (x >= 1060) {
 			System.out.println("Great");
 			close();
+			Game.score+=150;
 			return "Great";
 
-		} else if (y >= 573) {
+		} else if (x >= 1040) {
 			System.out.println("Perfect");
 			close();
+			Game.score+=200;
 			return "Perfect";
 
-		} else if (y >= 565) {
+		} else if (x >= 1025) {
 			System.out.println("Great");
 			close();
+			Game.score+=150;
 			return "Great";
 
-		} else if (y >= 550) {
+		} else if (x >= 1000) {
 			System.out.println("Good");
 			close();
+			Game.score+=100;
 			return "Good";
 
-		} else if (y >= 535) {
+		} else if (x >= 965) {
 			System.out.println("Early");
 			close();
+			Game.score+=50;
 			return "Early";
 		}
 		return "None";
 	}
 	
-	public int getY() {
-		return y;
+	public int getX() {
+		return x;
 	}
 
 }
