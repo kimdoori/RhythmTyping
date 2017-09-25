@@ -20,61 +20,56 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class RhythmTyping extends JFrame implements KeyListener {
-
 	// 더블버퍼링
 	private Image screenImage;
 	private Graphics screenGraphic;
 
 	// background 이미지
 	public static Image background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();
-
+	
+	private Image woodStickImage = new ImageIcon(Main.class.getResource("../images/woodStick.png")).getImage();
+	private Image woodStickImage2 = new ImageIcon(Main.class.getResource("../images/woodStick2.png")).getImage();
 	// menuBar
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
-
-	// 종료버튼
+	// menuBar에 띄울 x버튼(종료버튼)
 	private ImageIcon exitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/exitButtonEntered.png"));
 	private ImageIcon exitButtonBasicImage = new ImageIcon(Main.class.getResource("../images/exitButtonBasic.png"));
 	private JButton exitButton = new JButton(exitButtonBasicImage);
 
-	private int mouseX, mouseY;
+	private int mouseX, mouseY;// 마우스의 x좌표, y좌표
 
-	private JPanel nowPanel;
-	
-	private JScrollPane nowScrollPanel;
-	
-	
-	
+	public static boolean isStartScreen = true;// 시작화면인지
+	public static boolean isSelectScreen = false;// 노래선택화면인지
+	public static boolean isGameScreen = false;// 게임화면인지
 
-	public static boolean isMainScreen;
+	private JPanel nowPanel = new StartPanel(this);// 현재 패널 -->처음은 시작화면 패널로
+	private JScrollPane nowScrollPanel;// 현재 스크롤 패널
 
-	public static boolean isSelectScreen;
+	public SelectMusicPanel selectMusicPanel;// 노래선택 패널
+	public GamePanel gamePanel;// 게임 패널
 
-	public static boolean isGameScreen;
+	Music introMusic = new Music("Mr_Turtle.mp3", true);// 인트로 음악
 
-	public SelectMusicPanel selectMusicPanel;
+	public static String input = "";//키보드 입력받을
 
-	public GamePanel gamePanel;
-	
-	public SelectMusicPanel selectPanel;
-
-	public static Game game;
-
-	ArrayList<Track> trackList = new ArrayList<Track>();
-	private int nowSelected = 0;
-
-	Music introMusic = new Music("introMusic.mp3", true);
-
-	public static String input = "";
+	public static Game game;// 게임
 
 	public RhythmTyping() {
-		trackList.add(new Track("무제 Title image.png", "강남스타일startImage.jpg", "강남스타일gameImage.jpg", "PSY-강남스타일.mp3",
-				"PSY-강남스타일.mp3", "강남스타일"));
-		trackList.add(new Track("무제 Title image.png", "무제startImage.jpg", "무제gameImage.jpg", "G-DRAGON-무제.mp3",
-				"G-DRAGON-무제.mp3", "무제"));
+		introMusic.start();// 인트로 음악 실행
 
-		introMusic.start();
+		setUndecorated(true); // 기본적으로 존재하는 메뉴바가 보이지 않게
+		setTitle("RhythmTyping");
+		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		setResizable(false);// Frame 사이즈 변경 불가능
+		setLocationRelativeTo(null);// Frames이 정 중앙에 뜨게
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBackground(new Color(0, 0, 0, 0)); // 컴포넌트 배경을 하얀색으로
+		setLayout(null); // 컴포넌트를 그 위치에 꽂힌다
+		addKeyListener(this);
+		setFocusable(true);
+		setVisible(true);
 
-		// addKeyListener(new KeyListener());
+		// menubar에 띄울 x버튼
 		exitButton.setBounds(1245, 0, 30, 30);
 		exitButton.setBorderPainted(false);
 		exitButton.setContentAreaFilled(false);
@@ -102,45 +97,28 @@ public class RhythmTyping extends JFrame implements KeyListener {
 		});
 		add(exitButton);
 
+		// menubar
 		menuBar.setBounds(0, 0, 1280, 30);
 		menuBar.addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mousePressed(MouseEvent e) {// 이벤트가 발생했을 때 실행
 				mouseX = e.getX();
 				mouseY = e.getY();
 			}
-
 		});
 		menuBar.addMouseMotionListener(new MouseMotionAdapter() {
-
 			// 드래그하면 MenuBar를 이동시킬수있게
 			@Override
 			public void mouseDragged(MouseEvent e) {// 드래그 이벤트가 발생했을 때 실행
 				int x = e.getXOnScreen();
 				int y = e.getYOnScreen();
 				setLocation(x - mouseX, y - mouseY);
-
 			}
-
 		});
 		add(menuBar);
 
-		nowPanel = new StartPanel(this);
+		// 프레임에 nowPanel를
 		add(nowPanel);
-
-		setUndecorated(true); // 기본적으로 존재하는 메뉴바가 보이지 않게
-		setTitle("Dynamic Beat");
-		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-		setResizable(false);// Frame 사이즈 변경 불가능
-		setLocationRelativeTo(null);// Frames이 정 중앙에 뜨게
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
-		setBackground(new Color(0, 0, 0, 0)); // 컴포넌트 배경을 하얀색으로
-		setLayout(null); // 컴포넌트를 그 위치에 꽂힌다
-		addKeyListener(this);
-		setFocusable(true);
-
 	}
 
 	public void paint(Graphics g) {// 화면을 그려주는 함수
@@ -148,29 +126,29 @@ public class RhythmTyping extends JFrame implements KeyListener {
 		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 		// screenImage를 이용해 Grapic객체를 얻어옴
 		screenGraphic = screenImage.getGraphics();
-
 		// screenGraphic에 그림을 그림
 		screenDraw((Graphics2D) screenGraphic);
-
 		// screenImage를 0,0 위치에 그림
 		g.drawImage(screenImage, 0, 0, null);
 	}
 
 	public void screenDraw(Graphics2D g) {
-		// IntroBackground를 screenImage에 그림
-		// background 그리기
+		// background를 screenImage에 그림
 		g.drawImage(background, 0, 0, null);
-
-		if (isSelectScreen) {
+		
+		if (isStartScreen) {// 시작화면이라면
+			background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();
+			g.drawImage(woodStickImage, 200, 270, null);
+			g.drawImage(woodStickImage2, 490, 400, null);
+		}
+		else if (isSelectScreen) {// 노래선택화면이라면
+			background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();
 			selectMusicPanel.screenDraw(g);
-
-		} else if (isGameScreen) {
-			if(Game.gameMusic.getTime()<1)
-			background = new ImageIcon(Main.class.getResource("../images/backGround1.jpg")).getImage();
-
+		}
+		else if (isGameScreen) {// 게임화면이라면
+			if (Game.gameMusic.getTime() < 1)//게임 처음 시작시 백그라운드 이미지를 1로
+				background = new ImageIcon(Main.class.getResource("../images/gameBackground.jpg")).getImage();
 			game.screenDraw(g);
-
-		} else if (isMainScreen) {
 
 		}
 
@@ -181,92 +159,81 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			Thread.sleep(5);
 		} catch (Exception e) {
 			e.printStackTrace();
-
 		}
-
 		this.repaint();
 	}
 
-	public void change(String panelName) {
+	public void change(String panelName) {//프레임에 부착할 패널을 전환하는 메소드
 		if (panelName.equals("startPanel")) {
 			getContentPane().remove(nowPanel);
 			nowPanel = new StartPanel(this);
 			getContentPane().add(nowPanel);
+			isStartScreen=true;
+			isSelectScreen=false;
+			isGameScreen=false;
 		} else if (panelName.equals("howPanel")) {
-			getContentPane().remove(nowPanel);
-			nowPanel = new HowPanel(this);
-			getContentPane().add(nowPanel);
+//			getContentPane().remove(nowPanel);
+//			nowPanel = new HowPanel(this);
+//			getContentPane().add(nowPanel);
+//			isStartScreen=true;
+//			isSelectScreen=false;
+//			isGameScreen=false;
 		} else if (panelName.equals("recordPanel")) {
-			getContentPane().remove(nowPanel);
-			nowPanel = new RecordPanel(this);
-			getContentPane().add(nowPanel);
+//			getContentPane().remove(nowPanel);
+//			nowPanel = new RecordPanel(this);
+//			getContentPane().add(nowPanel);
+//			isStartScreen=true;
+//			isSelectScreen=false;
+//			isGameScreen=false;
 		} else if (panelName.equals("selectMusicPanel")) {
 			getContentPane().remove(nowPanel);
 			selectMusicPanel = new SelectMusicPanel(this);
-			nowPanel = null;
-			nowScrollPanel= selectMusicPanel;
-			isSelectScreen = true;
-			isGameScreen = false;
-			isMainScreen = false;
+			nowPanel = null;//현재패널을 null로 
+			nowScrollPanel = selectMusicPanel; //현재 스크롤 패널에
 			getContentPane().add(nowScrollPanel);
-
+			isStartScreen=false;
+			isSelectScreen=true;
+			isGameScreen=false;
 		} else if (panelName.equals("gamePanel")) {
+			introMusic.close();
 			getContentPane().remove(nowScrollPanel);
 			gamePanel = new GamePanel(this);
 			nowPanel = gamePanel;
-			isGameScreen = true;
-			isMainScreen = false;
-			isSelectScreen = false;
+			nowScrollPanel=null;
 			getContentPane().add(nowPanel);
-			gameStart(0, "Easy");
-
+			isStartScreen=false;
+			isSelectScreen=false;
+			isGameScreen=true;
+			gameStart(0);//선택한 곡 번호 -->게임 시작
 		}
 
 	}
-
-	public void gameStart(int nowSelected, String difficulty) {
-		isMainScreen = false;
-		isGameScreen = true;
-		game = new Game(trackList.get(nowSelected).getTitleName(), difficulty,
-				trackList.get(nowSelected).getGameMusic());
+	
+	public void gameStart(int selected) {
+		game = new Game(SelectMusicPanel.trackList.get(selected).getTitleName(),
+				SelectMusicPanel.trackList.get(selected).getGameMusic());
 		game.start();
-		// 키보드이벤트가 항상 정확히 캐치할 수 있게
-		setFocusable(true);
-
+		setFocusable(true);// 키보드이벤트가 항상 정확히 캐치할 수 있게
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// APEACH
-		// CON
-		// FRODO
-		// JAY-G
-		// NEO
-		// MUZI
-		// RYAN
-		// TUBE
-
-		if (RhythmTyping.game == null) {
+		if (game == null) {
 			return;
 		}
-		input += e.getKeyText(e.getKeyCode());
-		RhythmTyping.game.press();
-		System.out.println(input);
-
+		input += KeyEvent.getKeyText(e.getKeyCode());
+		game.press();
 	}
-
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (RhythmTyping.game == null) {
+		if (game == null) {
 			return;
 		}
-		RhythmTyping.game.release();
-
+		game.release();
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-
 	}
 
 }

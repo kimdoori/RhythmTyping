@@ -43,7 +43,7 @@ public class Note extends Thread {
 	}
 
 	public Note(String type,String noteType) {
-		y=500;
+		y=350;
 		this.type=type;
 		this.noteType = noteType;
 		noteBasicImage = new ImageIcon(Main.class.getResource("../images/note"+noteType+".png")).getImage();
@@ -84,37 +84,36 @@ public class Note extends Thread {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		//	System.out.println(e.getMessage());
 
 		}
 
 	}
 
 	public String judge() {
-
-		if (x > 1100) {
+		if (x > 1106) {
 			System.out.println("Late");
 			close();
 			return "Late";
-		} else if (x >= 1080) {
+		} else if (x >= 1070) {
 			System.out.println("Good");
 			close();
 			Game.score+=100;
 			return "Good";
 
-		} else if (x >= 1060) {
+		} else if (x >= 1050) {
 			System.out.println("Great");
 			close();
 			Game.score+=150;
 			return "Great";
 
-		} else if (x >= 1040) {
+		} else if (x >= 1035) {
 			System.out.println("Perfect");
 			close();
 			Game.score+=200;
 			return "Perfect";
 
-		} else if (x >= 1025) {
+		} else if (x >= 1020) {
 			System.out.println("Great");
 			close();
 			Game.score+=150;
@@ -126,7 +125,7 @@ public class Note extends Thread {
 			Game.score+=100;
 			return "Good";
 
-		} else if (x >= 965) {
+		} else if (x >= 975) {
 			System.out.println("Early");
 			close();
 			Game.score+=50;

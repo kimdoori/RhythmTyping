@@ -16,17 +16,9 @@ import javax.swing.JScrollPane;
 public class GamePanel extends JPanel {
 	private RhythmTyping frame;
 
-	// start버튼에 넣을 이미지
-	private ImageIcon startButtonEnteredImage = new ImageIcon(
-			Main.class.getResource("../images/startButtonEntered.png"));
-	private ImageIcon startButtonBasicImage = new ImageIcon(Main.class.getResource("../images/startButtonBasic.png"));
-	// start버튼
-	private JButton startButton = new JButton(startButtonBasicImage);
-
 	private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/backButtonEntered.png"));
 	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/backButtonBasic.png"));
 	private JButton backButton = new JButton(backButtonBasicImage);
-
 
 	public GamePanel(RhythmTyping rhythmTyping) {
 		frame = rhythmTyping;
@@ -58,7 +50,7 @@ public class GamePanel extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
 				// 메인화면으로 돌아가는 이벤트
-				// backMain();
+				backSelect();
 
 			}
 
@@ -67,4 +59,10 @@ public class GamePanel extends JPanel {
 
 	}
 
+	public void backSelect() {
+		RhythmTyping.game.close();// 현재실행되고 있는 게임 종료
+		frame.change("selectMusicPanel");
+	}
+
+	
 }

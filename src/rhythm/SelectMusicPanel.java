@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,16 +22,21 @@ public class SelectMusicPanel extends JScrollPane{
 
 	private RhythmTyping frame;
 
-	// 종료버튼
-	private ImageIcon exitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/exitButtonEntered.png"));
-	private ImageIcon exitButtonBasicImage = new ImageIcon(Main.class.getResource("../images/exitButtonBasic.png"));
-	private JButton exitButton = new JButton(exitButtonBasicImage);
+	// 뒤로가기버튼
+	private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/exitButtonEntered.png"));
+	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/exitButtonBasic.png"));
+	private JButton backButton = new JButton();
+	
+	JButton goButton = new JButton("go");
 
-	private Image musicTrack = new ImageIcon(Main.class.getResource("../images/musicTrack.png")).getImage();
+	//private Image musicTrack = new ImageIcon(Main.class.getResource("../images/musicTrack.png")).getImage();
 
-	private Image musicTrackLine = new ImageIcon(Main.class.getResource("../images/musicTrackLine.png")).getImage();
+	//private Image musicTrackLine = new ImageIcon(Main.class.getResource("../images/musicTrackLine.png")).getImage();
 
+	public static ArrayList<Track> trackList = new ArrayList<Track>();
 	public SelectMusicPanel(RhythmTyping rhythmTyping) {
+		trackList.add(new Track("무제 Title image.png", "강남스타일startImage.jpg", "강남스타일gameImage.jpg", "PSY-강남스타일.mp3",
+				"PSY-강남스타일.mp3", "강남스타일"));
 		frame = rhythmTyping;
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		getVerticalScrollBar().setUnitIncrement(16);
@@ -64,7 +70,7 @@ public class SelectMusicPanel extends JScrollPane{
 		jpp.add(jl);
 		jpp.add(jl2);
 
-		JButton goButton = new JButton("go");
+		
 		goButton.setBounds(1000, 0, 200, 100);
 		goButton.setBorderPainted(false);
 		goButton.setFont(f1);
@@ -73,14 +79,14 @@ public class SelectMusicPanel extends JScrollPane{
 		goButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {// 마우스가 올라왔을 때 실행
-				goButton.setIcon(exitButtonEnteredImage);
+			//	goButton.setIcon(exitButtonEnteredImage);
 				// 버튼위에 마우스가 올라가면 손 모양으로 바뀜
 				goButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {// 해당 버튼에서 마우스가 나왔을 때
-				goButton.setIcon(exitButtonBasicImage);
+				//goButton.setIcon(exitButtonBasicImage);
 				// 마우스가 버튼에서 벗어나면 원래 모양으로 바뀜
 				goButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
@@ -94,79 +100,11 @@ public class SelectMusicPanel extends JScrollPane{
 		});
 		jpp.add(goButton);
 
-		
-		
-
 		panel.add(jpp);
-		// musicTrack.setBounds(0, 0, 1280, 100);
-		// add(musicTrack);
-		// musicTrackLine.setBounds(0, 100, 1280, 4);
-		// add(musicTrack);
-
-		
-//		JPanel panel = new JPanel();
-//		panel.add(this);
-//		JButton goButton = new JButton("go");
-//		goButton.setBounds(1200, 50, 30, 30);
-//		goButton.setBorderPainted(false);
-//		goButton.setContentAreaFilled(false);
-//		goButton.setFocusPainted(false);
-//		goButton.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseEntered(MouseEvent e) {// 마우스가 올라왔을 때 실행
-//				goButton.setIcon(exitButtonEnteredImage);
-//				// 버튼위에 마우스가 올라가면 손 모양으로 바뀜
-//				goButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-//			}
-//
-//			@Override
-//			public void mouseExited(MouseEvent e) {// 해당 버튼에서 마우스가 나왔을 때
-//				goButton.setIcon(exitButtonBasicImage);
-//				// 마우스가 버튼에서 벗어나면 원래 모양으로 바뀜
-//				goButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-//			}
-//
-//			@Override
-//			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
-//				
-//				frame.change("gamePanel");
-//			}
-//
-//		});
-//		add(goButton);
-
 	}
 
 	public void screenDraw(Graphics2D g) {
-//		g.drawImage(musicTrack, 0, 30, null);
-//		g.drawImage(musicTrack, 0, 134, null);
-//		g.drawImage(musicTrack, 0, 238, null);
 
-		
-		
-		
-		// g.drawImage(musicTrack, 0, 372, null);
-		// g.drawImage(musicTrack, 0, 506, null);
-		// g.drawImage(musicTrack, 0, 640, null);
-
-		//
-		// g.setColor(Color.white);
-		// g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-		// RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		// g.setFont(new Font("Arial", Font.BOLD, 30));
-		// g.drawString(titleName, 20, 702);
-		// g.drawString(difficulty, 1190, 702);
-		// g.setColor(Color.DARK_GRAY);
-		// g.drawString("S", 270, 609);
-		// g.drawString("D", 374, 609);
-		// g.drawString("f", 478, 609);
-		// g.drawString("Space Bar", 580, 609);
-		// g.drawString("J", 784, 609);
-		// g.drawString("K", 889, 609);
-		// g.drawString("L", 993, 609);
-		// g.setColor(Color.LIGHT_GRAY);
-		// g.setFont(new Font("Elephant", Font.BOLD, 30));
-		// g.drawString("00000", 565, 702);
 
 		this.repaint();
 

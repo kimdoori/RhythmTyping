@@ -25,7 +25,7 @@ public class Beat {
 	public void setNoteName(String noteName) {
 		this.noteName = noteName;
 	}
-	public Beat(int time,String type, String noteName) {
+	public Beat(int time,String type,String noteName) {
 		super();
 		this.time = time;
 		this.type=type;
