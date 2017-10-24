@@ -14,7 +14,7 @@ public class JDBCExam
 	ResultSet resultSet;
 	
 	String driverName = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://13.114.123.192/test";
+	String url = "jdbc:mysql://13.114.123.192/rhythmTyping";
 	String user = "root";
 	String password = "0228";
 	
@@ -30,7 +30,7 @@ public class JDBCExam
 //			
 //			System.out.println("성공");
 			
-			String queryString = "SELECT * FROM table1";
+			String queryString = "SELECT * FROM userInfo";
 
 			// ② 연결 [Connection]
 			connection = DriverManager.getConnection(url, user, password);
@@ -45,12 +45,16 @@ public class JDBCExam
 			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
 			// 컬럼 출력
-			System.out.println(resultSetMetaData.getColumnName(1));
-
+			//System.out.println(resultSetMetaData.getColumnName(1));
 			while (resultSet.next())
 			{
+				System.out.println(resultSet.getString("id"));
 				System.out.println(resultSet.getString("name"));
+				System.out.println(resultSet.getString("pw"));
 			}
+			//System.out.println(resultSetMetaData.getColumnName(2));
+			
+			
 			
 		}
 		catch (ClassNotFoundException e)

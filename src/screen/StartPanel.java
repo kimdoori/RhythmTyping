@@ -74,8 +74,9 @@ public class StartPanel extends JPanel {
 				// 버튼 안보이게
 				// introMusic 안들리게
 				// enterMain();
-				// TODO:selectMusicView로 이동
-				frame.change("selectMusicPanel");
+				//new LoginDialog();
+				frame.change("loginPanel");
+				//TODO: 노래선택으로 frame.change("selectMusicPanel");
 
 			}
 
