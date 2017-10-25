@@ -34,6 +34,9 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	private Image woodStickImage = new ImageIcon(Main.class.getResource("../images/woodStick.png")).getImage();
 	private Image woodStickImage2 = new ImageIcon(Main.class.getResource("../images/woodStick2.png")).getImage();
 	
+	private Image titleImage = new ImageIcon(Main.class.getResource("../images/title.png")).getImage();
+
+	
 	private Image woodLoginImage = new ImageIcon(Main.class.getResource("../images/loginBackgroundImage.png")).getImage();
 
 	
@@ -50,7 +53,9 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	public static boolean isSelectScreen = false;// 노래선택화면인지
 	public static boolean isGameScreen = false;// 게임화면인지
 	public static boolean isLoginScreen = false;// 로그인화면인지
+	public static boolean isHowScreen = false;// 게임방법화면인지
 
+	
 	private JPanel nowPanel = new StartPanel(this);// 현재 패널 -->처음은 시작화면 패널로
 	private JScrollPane nowScrollPanel;// 현재 스크롤 패널
 	private JDialog nowDialog; //현재 다이얼로그
@@ -59,6 +64,7 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	public GamePanel gamePanel;// 게임 패널
 
 	Music introMusic = new Music("Mr_Turtle.mp3", true);// 인트로 음악
+	public String gameImage = "";
 
 	public static String input = "";//키보드 입력받을
 
@@ -76,9 +82,8 @@ public class RhythmTyping extends JFrame implements KeyListener {
 		setBackground(new Color(0, 0, 0, 0)); // 컴포넌트 배경을 하얀색으로
 		setLayout(null); // 컴포넌트를 그 위치에 꽂힌다
 		addKeyListener(this);
-		setFocusable(true);
 		setVisible(true);
-
+		setFocusable(true);
 		// menubar에 띄울 x버튼
 		exitButton.setBounds(1245, 0, 30, 30);
 		exitButton.setBorderPainted(false);
@@ -148,8 +153,13 @@ public class RhythmTyping extends JFrame implements KeyListener {
 		
 		if (isStartScreen) {// 시작화면이라면
 			background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();
+			g.drawImage(titleImage, 520, 60, null);
 			g.drawImage(woodStickImage, 200, 270, null);
 			g.drawImage(woodStickImage2, 490, 400, null);
+		}
+		else if(isHowScreen) {
+			background = new ImageIcon(Main.class.getResource("../images/howtoplay.png")).getImage();
+
 		}
 		else if(isLoginScreen) {
 			background = new ImageIcon(Main.class.getResource("../images/loginBackground.png")).getImage();
@@ -161,8 +171,9 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			selectMusicPanel.screenDraw(g);
 		}
 		else if (isGameScreen) {// 게임화면이라면
-			if (Game.gameMusic.getTime() < 1)//게임 처음 시작시 백그라운드 이미지를 1로
-				background = new ImageIcon(Main.class.getResource("../images/gameBackground.jpg")).getImage();
+			
+			
+			background = new ImageIcon(Main.class.getResource("../images/"+gameImage)).getImage();
 			game.screenDraw(g);
 
 		}
@@ -185,6 +196,7 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			getContentPane().add(nowPanel);
 			isStartScreen=true;
 			isLoginScreen=false;
+			isHowScreen=false;
 			isSelectScreen=false;
 			isGameScreen=false;
 		} 
@@ -194,29 +206,20 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			getContentPane().add(nowPanel);
 			isStartScreen=false;
 			isLoginScreen=true;
+			isHowScreen=false;
 			isSelectScreen=false;
 			isGameScreen=false;
 		} 
-		else if (panelName.equals("signupPanel")) {
-			getContentPane().remove(nowPanel);
-			nowPanel = new SignupPanel(this);
-			getContentPane().add(nowPanel);
-			isStartScreen=true;
-			isLoginScreen=false;
-			isSelectScreen=false;
-			isGameScreen=false;
-		} 
-
 		
 		else if (panelName.equals("howPanel")) {
-//			getContentPane().remove(nowPanel);
-//			nowPanel = new HowPanel(this);
-//			getContentPane().add(nowPanel);
-//			isStartScreen=true;
-//			isLoginScreen=false;
-
-//			isSelectScreen=false;
-//			isGameScreen=false;
+			getContentPane().remove(nowPanel);
+			nowPanel = new HowPanel(this);
+			getContentPane().add(nowPanel);
+			isStartScreen=false;
+			isLoginScreen=false;
+			isHowScreen=true;
+			isSelectScreen=false;
+			isGameScreen=false;
 		} else if (panelName.equals("recordPanel")) {
 //			getContentPane().remove(nowPanel);
 //			nowPanel = new RecordPanel(this);
@@ -234,7 +237,7 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			getContentPane().add(nowScrollPanel);
 			isStartScreen=false;
 			isLoginScreen=false;
-
+			isHowScreen=false;
 			isSelectScreen=true;
 			isGameScreen=false;
 		} else if (panelName.equals("gamePanel")) {
@@ -246,7 +249,7 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			getContentPane().add(nowPanel);
 			isStartScreen=false;
 			isLoginScreen=false;
-
+			isHowScreen=false;
 			isSelectScreen=false;
 			isGameScreen=true;
 			gameStart(0);//선택한 곡 번호 -->게임 시작
@@ -255,18 +258,21 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	}
 	
 	public void gameStart(int selected) {
+		this.requestFocus(true);
 		game = new Game(SelectMusicPanel.trackList.get(selected).getTitleName(),
 				SelectMusicPanel.trackList.get(selected).getGameMusic());
 		game.start();
-		setFocusable(true);// 키보드이벤트가 항상 정확히 캐치할 수 있게
+		// 키보드이벤트가 항상 정확히 캐치할 수 있게
 	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
+		System.out.println(KeyEvent.getKeyText(e.getKeyCode()));
 		if (game == null) {
 			return;
 		}
 		input += KeyEvent.getKeyText(e.getKeyCode());
+		System.out.println(input);
 		game.press();
 	}
 	@Override

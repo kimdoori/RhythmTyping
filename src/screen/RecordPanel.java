@@ -54,7 +54,7 @@ public class RecordPanel extends JPanel {
 				// introMusic 안들리게
 				// enterMain();
 				// TODO:selectMusicView로 이동
-				frame.change("selectMusicPanel");
+				frame.change("startPanel");
 
 			}
 

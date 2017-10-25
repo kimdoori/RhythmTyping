@@ -24,11 +24,10 @@ public class GamePanel extends JPanel {
 
 	public GamePanel(RhythmTyping rhythmTyping) {
 		frame = rhythmTyping;
-
+		
 		setLayout(null); // 패널의 Layout을 NULL
 		setBackground(new Color(255, 0, 0, 0));
 		setBounds(0, 30, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT - 30);
-
 		backButton.setVisible(true);
 		backButton.setBounds(20, 50, 60, 60);
 		backButton.setBorderPainted(false);

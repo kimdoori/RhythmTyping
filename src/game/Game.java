@@ -35,14 +35,7 @@ public class Game extends Thread {
 	public static Music gameMusic;
 	ArrayList<Beat> beats = new ArrayList<Beat>();
 	
-	//static ArrayList<BmsNote> madi = new ArrayList<BmsNote>();
-	static boolean datafield=false;
 
-
-		
-		
-	
-	
 	ArrayList<Note> noteList = new ArrayList<Note>();
 
 	public Game(String titleName, String musicTitle) {
@@ -54,18 +47,7 @@ public class Game extends Thread {
 	}
 
 	public void screenDraw(Graphics2D g) {
-		// if (Game.gameMusic.getTime() % 500 < 3) {
-		// if (flag)
-		// RhythmTyping.background = new
-		// ImageIcon(Main.class.getResource("../images/backGround1.jpg"))
-		// .getImage();
-		// else
-		// RhythmTyping.background = new
-		// ImageIcon(Main.class.getResource("../images/backGround2.jpg"))
-		// .getImage();
-		// flag = !flag;
-		// System.out.println(flag);
-		// }
+
 		g.drawImage(noteRouteImage, 0, 350, null);
 		g.drawImage(judgementLineImage, 1006, 350, null);
 
@@ -114,31 +96,20 @@ public class Game extends Thread {
 	}
 
 	public void close() {
-		gameMusic.close();
+		gameMusic.close();//close
 		this.interrupt();
 	}
 
 	public void dropNotes(String titleName) {
-		// 하나의 곡에 대한 모든 비트: 원하는 비트에 원하는 노트를
-		// 원하는 곡의 악보를 구해서 bpm을 보자 : bpm -->1분에 나오는 비트의 수
-		// 4분의 4박자의 곡에서 bpm이 60이라면 한 박자는 1초가 되는 것이다
-		// bpm = 132
-		//
-		// 첫번째 박자가 시작하는 그 시간대를 구하자.
-		// Beat[] beats= {
-		// new Beat(1000,"S"),
-		// new Beat(2000,"D"),
-		// new Beat(3000,"F"),
-		// };
-		if (titleName.equals("강남스타일")) {
+		if (titleName.equals("강남스타일 - PSY")) {
 			// 노트의 도달시간에 구애받지 않고 항상 첫번째 똑같은 노트가 판정바에 적중하는 타이밍 유지
 			System.out.println(titleName);
-			initBeat();
-			 AscendingObj ascending = new AscendingObj();
-		     Collections.sort(beats, ascending);
-
+			beats=BMS.initBeat(beats,"gangnamstyle");
+			
 		}
-		System.out.println("초기화완료");
+		
+		 AscendingObj ascending = new AscendingObj();
+	     Collections.sort(beats, ascending);
 		int i = 0;
 		gameMusic.start();
 		// 현재상태에서 노트가 떨어지지않은 경우에는 무한정반복하는 것이 아니라 텀을 두면서 노트를 떨어트릴 수 있기 때문에 훨씬 더 효율적
@@ -165,159 +136,7 @@ public class Game extends Thread {
 
 	}
 
-	public void initBeat() {
-		beats=new ArrayList<Beat>();
-		int startTime = 1000;// 4460 - Main.REACH_TIME *
-		int gap = 125; // 최소 박자의 간격 8분의 1이니까 1000/8 //125
-		
-//		beats.add(new Beat(startTime, "short", "A"));
-//		beats.add(new Beat(startTime + gap * 4, "short", "C"));
-//		beats.add(new Beat(startTime + gap * 12, "long", "cherry"));
-//		beats.add(new Beat(startTime + gap * 18, "short", "B"));
-//		beats.add(new Beat(startTime + gap * 20, "short", "A"));
-				
-//				new Beat(startTime + gap * 28, "long", "apple"), new Beat(startTime + gap * 34, "short", "A"),
-//				new Beat(startTime + gap * 36, "short", "A"), new Beat(startTime + gap * 40, "long", "banana"),
-//				new Beat(startTime + gap * 43, "short", "A"), };
-		
-		
-		try {
-		      BufferedReader in = new BufferedReader(new FileReader("gangnamstyle.bms"));
-		      String s;
-
-		      while ((s = in.readLine()) != null) {
-		    	  if(s.contains("*---------------------- MAIN DATA FIELD")) {
-		    		  datafield=true;
-		    		  continue;
-		    	  }
-		    	  
-		    	  if(datafield) {
-		    		  if(s.contains("#")) {
-		    			  
-		    			  System.out.println(s);
-
-		    			  char ch[]=new char[3];
-		    			  ch[0]=s.charAt(1);
-		    			  ch[1]=s.charAt(2);
-		    			  ch[2]=s.charAt(3);
-		    			  //노트에 해당하는 마디 
-		    			  int madiOfNote=Integer.parseInt(String.valueOf(ch));
-		    			  System.out.println("마디:"+madiOfNote);
-		    			  char ch2[]=new char[2];
-		    			  ch2[0]=s.charAt(4);
-		    			  ch2[1]=s.charAt(5);
-		    			  //노트에 해당하는 라인
-		    			  int line=Integer.parseInt(String.valueOf(ch2));
-		    			  System.out.println("라인번호 : "+line);
-
-		    			  String noteType = "";
-		    			  String noteName = "";
-		    			  
-		    			  
-		    			  switch(line) {
-		    			  case 11:
-		    				  noteType="short";
-		    				  noteName="A";
-		    				  break;
-		    			  case 12:
-		    				  noteType="short";
-		    				  noteName="B";
-		    				  break;
-		    			  case 13:
-		    				  noteType="short";
-		    				  noteName="C";
-		    				  break;
-		    			  case 14:
-		    				  noteType="long";
-		    				  noteName="apple";
-		    				  break;
-		    			  case 15:
-		    				  noteType="long";
-		    				  noteName="banana";
-		    				  break;
-		    			  case 18:
-		    				  noteType="long";
-		    				  noteName="cherry";
-		    				  break;
-		    			  
-		    			  }
-
-		    			  //라인에 있는 노트들
-		    			  String parseNote=s.substring(7);
-		    			  System.out.println(parseNote);
-		    			  int index;
-		    			  int add=0;
-		    			  switch(parseNote.length()) {
-		    			  case 2:
-		    				  while((index=parseNote.indexOf("1"))!=-1) {
-			    					 
-		    					  int a = (index+1)/2+add*8;
-			    				  
-			    				  int timing = madiOfNote*8+a;
-			    				  beats.add(new Beat(startTime + gap *timing,noteType, noteName));
-			    				  System.out.println(timing);
-			    				  parseNote=parseNote.substring(index+1);
-			    				  add++;
-			    				//(String noteType, String noteName, int madiOrder, int noteOrder
-				    			 
-
-		    				  }
-		    		
-		    				  break;
-		    			  
-		    			  case 4:
-		    				  while((index=parseNote.indexOf("1"))!=-1) {
-		    					 
-		    					  int a = (index+1)/2+add*4;
-			    				  
-			    				  int timing = madiOfNote*8+a;
-			    				  beats.add(new Beat(startTime + gap *timing,noteType, noteName));
-			    				  System.out.println(timing);
-			    				  parseNote=parseNote.substring(index+1);
-			    				  add++;
-			    				//(String noteType, String noteName, int madiOrder, int noteOrder
-				    			 
-
-		    				  }
-		    		
-		    				  break;
-		    			  case 8:
-		    				  
-		    				  while((index=parseNote.indexOf("1"))!=-1) {
-		    					 int a=(index+1)/2+add*2;
-			    				  int timing = madiOfNote*8+a;
-			    				  beats.add(new Beat(startTime + gap *timing,noteType, noteName));
-			    				  System.out.println(timing);
-			    				  parseNote=parseNote.substring(index+1);
-			    				  add++;
-			    				  
-		    				  }
-		    				  break;
-		    			  case 16:
-		    				  while((index=parseNote.indexOf("1"))!=-1) {
-			    				  int a=(index+1+add)/2;
-		    					  int timing = madiOfNote*8+a;
-			    				  beats.add(new Beat(startTime + gap *timing,noteType, noteName));
-			    				  System.out.println(timing);
-			    				  parseNote=parseNote.substring(index+1);
-			    				  add+=index+1;
-		    				  }
-		    				  break;
-		    				  
-		    			  }
-		    			  
-		    			
-		    			  
-		    			  
-		    		  }
-		    	  }
-		      }
-		      in.close();
-		    } catch (IOException e) {
-		        System.err.println(e); // 에러가 있다면 메시지 출력
-		        System.exit(1);
-		    }
-	}
+	
 	
 	public void judge() {
 		Note note = noteList.get(0);// 하나의 노트씩 얻어내서

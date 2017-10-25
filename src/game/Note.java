@@ -73,7 +73,7 @@ public class Note extends Thread {
 	public void run() {
 		try {
 			while (true) {
-				
+
 				// 1초에 700픽셀만큼 y좌표가 아래로 내려간다.
 				drop();
 				// 현재 노트가 계속해서 움직이고 있는 상황이라면
