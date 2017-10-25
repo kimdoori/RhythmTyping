@@ -41,7 +41,7 @@ public class ConnectDB {
 	}
 
 	@SuppressWarnings("unused")
-	public boolean checkInfo(String inputId, String inputPw, String inputName) {
+	public String checkInfo(String inputId, String inputPw, String inputName) {
 		try {
 
 
@@ -60,9 +60,12 @@ public class ConnectDB {
 				String dbName = resultSet.getString("name");
 				String dbPw = resultSet.getString("pw");
 
-				if (inputId.equals(dbId) && inputPw.equals(dbPw) && inputName.equals(dbName)) {
-					return true;
-				}
+				if(!inputPw.equals(dbPw))
+					return "올바른 비밀번호를 입력해주세요.";
+				else if(!inputName.equals(dbName))
+					return "올바른 이름을 입력해주세요.";
+				return "true";
+
 			}
 			// System.out.println(resultSetMetaData.getColumnName(2));
 
@@ -71,7 +74,7 @@ public class ConnectDB {
 			System.out.println(e.toString());
 
 		}
-		return false;
+		return "존재하지 않는 아이디입니다.";
 	}
 
 	@SuppressWarnings("unused")

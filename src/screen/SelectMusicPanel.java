@@ -32,6 +32,8 @@ public class SelectMusicPanel extends JScrollPane{
 	
 //	JButton[] goButton = new JButton[4];
 	JButton goButton = new JButton();
+	
+	public static int songIndex=0;
 
 	//private Image musicTrack = new ImageIcon(Main.class.getResource("../images/musicTrack.png")).getImage();
 
@@ -39,9 +41,11 @@ public class SelectMusicPanel extends JScrollPane{
 
 	public static ArrayList<Track> trackList = new ArrayList<Track>();
 	public SelectMusicPanel(RhythmTyping rhythmTyping) {
-		
+		trackList.clear();
 		trackList.add(new Track("강남스타일 - PSY", "gangnamstyle.png","PSY-강남스타일.mp3"));
-		trackList.add(new Track("무제 - GD", "gangnamstyle.jpg","PSY-강남스타일.mp3"));
+		trackList.add(new Track("D - 딘", "D.png","PSY-강남스타일.mp3"));
+		trackList.add(new Track("빨간맛 - 레드벨벳", "빨간맛.png","PSY-강남스타일.mp3"));
+		trackList.add(new Track("삐딱하게 - GD", "삐딱하게.png","PSY-강남스타일.mp3"));
 
 		//		trackList.add(new Track("무제 Title image.png", "강남스타일startImage.jpg", "강남스타일gameImage.jpg", "PSY-강남스타일.mp3",
 //				"PSY-강남스타일.mp3", "강남스타일"));
@@ -146,8 +150,9 @@ public class SelectMusicPanel extends JScrollPane{
 
 				@Override
 				public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
-					frame.change("gamePanel");
+					songIndex=index;
 					frame.gameImage=trackList.get(index).getGameBackgroundImage();
+					frame.change("selectNotePanel");
 				}
 
 			});

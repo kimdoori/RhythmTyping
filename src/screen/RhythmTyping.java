@@ -39,6 +39,8 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	
 	private Image woodLoginImage = new ImageIcon(Main.class.getResource("../images/loginBackgroundImage.png")).getImage();
 
+	private Image note1Image = new ImageIcon(Main.class.getResource("../images/note1Image.png")).getImage();
+	private Image note2Image = new ImageIcon(Main.class.getResource("../images/note2Image.png")).getImage();
 	
 	// menuBar
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
@@ -54,6 +56,8 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	public static boolean isGameScreen = false;// 게임화면인지
 	public static boolean isLoginScreen = false;// 로그인화면인지
 	public static boolean isHowScreen = false;// 게임방법화면인지
+	public static boolean isRecordScreen = false;// 기록화면인지
+	public static boolean isNoteScreen = false;// 노트선택화면인지
 
 	
 	private JPanel nowPanel = new StartPanel(this);// 현재 패널 -->처음은 시작화면 패널로
@@ -164,14 +168,20 @@ public class RhythmTyping extends JFrame implements KeyListener {
 		else if(isLoginScreen) {
 			background = new ImageIcon(Main.class.getResource("../images/loginBackground.png")).getImage();
 			g.drawImage(woodLoginImage, 340, 150, null);
-
+		}
+		else if(isRecordScreen) {
+			background = new ImageIcon(Main.class.getResource("../images/loginBackground.png")).getImage();
 		}
 		else if (isSelectScreen) {// 노래선택화면이라면
 			background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();
 			selectMusicPanel.screenDraw(g);
 		}
+		else if(isNoteScreen) {
+			background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();
+			g.drawImage(note1Image, 300, 220, null);
+			g.drawImage(note2Image, 300, 470, null);
+		}
 		else if (isGameScreen) {// 게임화면이라면
-			
 			
 			background = new ImageIcon(Main.class.getResource("../images/"+gameImage)).getImage();
 			game.screenDraw(g);
@@ -198,6 +208,7 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			isLoginScreen=false;
 			isHowScreen=false;
 			isSelectScreen=false;
+			isNoteScreen=false;
 			isGameScreen=false;
 		} 
 		else if (panelName.equals("loginPanel")) {
@@ -207,7 +218,9 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			isStartScreen=false;
 			isLoginScreen=true;
 			isHowScreen=false;
+			isRecordScreen=false;
 			isSelectScreen=false;
+			isNoteScreen=false;
 			isGameScreen=false;
 		} 
 		
@@ -218,17 +231,21 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			isStartScreen=false;
 			isLoginScreen=false;
 			isHowScreen=true;
+			isRecordScreen=false;
 			isSelectScreen=false;
+			isNoteScreen=false;
 			isGameScreen=false;
 		} else if (panelName.equals("recordPanel")) {
-//			getContentPane().remove(nowPanel);
-//			nowPanel = new RecordPanel(this);
-//			getContentPane().add(nowPanel);
-//			isStartScreen=true;
-//			isLoginScreen=false;
-
-//			isSelectScreen=false;
-//			isGameScreen=false;
+			getContentPane().remove(nowPanel);
+			nowPanel = new RecordPanel(this);
+			getContentPane().add(nowPanel);
+			isStartScreen=false;
+			isLoginScreen=false;
+			isHowScreen=false;
+			isRecordScreen=true;
+			isSelectScreen=false;
+			isNoteScreen=false;
+			isGameScreen=false;
 		} else if (panelName.equals("selectMusicPanel")) {
 			getContentPane().remove(nowPanel);
 			selectMusicPanel = new SelectMusicPanel(this);
@@ -237,22 +254,39 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			getContentPane().add(nowScrollPanel);
 			isStartScreen=false;
 			isLoginScreen=false;
-			isHowScreen=false;
+			isHowScreen=false;			
+			isRecordScreen=false;
 			isSelectScreen=true;
+			isNoteScreen=false;
 			isGameScreen=false;
-		} else if (panelName.equals("gamePanel")) {
-			introMusic.close();
+		} else if (panelName.equals("selectNotePanel")) {
 			getContentPane().remove(nowScrollPanel);
-			gamePanel = new GamePanel(this);
-			nowPanel = gamePanel;
-			nowScrollPanel=null;
+			nowPanel = new SelectNotePanel(this);// 
+			nowScrollPanel = null; //현재 스크롤 패널에
 			getContentPane().add(nowPanel);
 			isStartScreen=false;
 			isLoginScreen=false;
-			isHowScreen=false;
+			isHowScreen=false;			
+			isRecordScreen=false;
 			isSelectScreen=false;
+			isNoteScreen=true;
+			isGameScreen=false;
+		}
+		else if (panelName.equals("gamePanel")) {
+			introMusic.close();
+			getContentPane().remove(nowPanel);
+			gamePanel = new GamePanel(this);
+			nowPanel = gamePanel;
+			getContentPane().add(nowPanel);
+			isStartScreen=false;
+			isLoginScreen=false;
+			isHowScreen=false;			
+			isRecordScreen=false;
+			isSelectScreen=false;
+			isNoteScreen=false;
 			isGameScreen=true;
-			gameStart(0);//선택한 곡 번호 -->게임 시작
+			System.out.println(SelectMusicPanel.songIndex);
+			gameStart(SelectMusicPanel.songIndex);//선택한 곡 번호 -->게임 시작
 		}
 
 	}

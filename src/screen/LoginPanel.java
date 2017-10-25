@@ -120,7 +120,8 @@ public class LoginPanel extends JPanel {
 					JOptionPane.showMessageDialog(null,"아이디와 비밀번호는 4자리 이상을 입력해주세요.", "정보 재 입력",JOptionPane.ERROR_MESSAGE);
 					//new ReInputDailog();
 				}else {
-					if(connectDB.checkInfo(inputId,inputPw,inputName)) {
+					String message=null;
+					if((message = connectDB.checkInfo(inputId,inputPw,inputName)) == "true") {
 						id.setFocusable(false);
 						pw.setFocusable(false);
 						name.setFocusable(false);
@@ -130,7 +131,7 @@ public class LoginPanel extends JPanel {
 					}
 					else {
 						//TODO: 아이디/비밀번호/이름이 틀렸다.
-						JOptionPane.showMessageDialog(null,"존재하지 않는 아이디입니다.", "로그인 실패",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,message, "로그인 실패",JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
