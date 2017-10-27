@@ -26,7 +26,7 @@ public class HowPanel extends JPanel {
 		
 
 		backButton.setVisible(true);
-		backButton.setBounds(40, 50, 60, 60);
+		backButton.setBounds(30, 20, 60, 60);
 		backButton.setBorderPainted(false);
 		backButton.setContentAreaFilled(false);
 		backButton.setFocusPainted(false);

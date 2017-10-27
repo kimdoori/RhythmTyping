@@ -5,16 +5,32 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import rhythm.Main;
+import screen.SelectMusicPanel;
 import screen.SelectNotePanel;
 
 public class BMS {
 	// static ArrayList<BmsNote> madi = new ArrayList<BmsNote>();
-	static boolean datafield = false;
+	boolean datafield = false;
 
-	public static ArrayList<Beat> initBeat(ArrayList<Beat> beats, String bmsName) {
+	public ArrayList<Beat> initBeat(ArrayList<Beat> beats, String bmsName) {
 		beats = new ArrayList<Beat>();
-		int startTime = 1000;// 4460 - Main.REACH_TIME *
-		int gap = 125; // 최소 박자의 간격 8분의 1이니까 1000/8 //125
+		int startTime =-3300;// 4460 - Main.REACH_TIME *1000
+		
+		double gap=0;
+		switch(SelectMusicPanel.songIndex) {
+		case 0: 
+			gap =225; // 최소 박자의 간격 8분의 1이니까 1000/8 //125
+			break;
+		case 1:
+			gap = 250;
+			break;
+		default:
+			gap = 125;
+			break;
+		}
+		
+		
 
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(bmsName + ".bms"));
@@ -29,21 +45,17 @@ public class BMS {
 				if (datafield) {
 					if (s.contains("#")) {
 
-						System.out.println(s);
-
 						char ch[] = new char[3];
 						ch[0] = s.charAt(1);
 						ch[1] = s.charAt(2);
 						ch[2] = s.charAt(3);
 						// 노트에 해당하는 마디
 						int madiOfNote = Integer.parseInt(String.valueOf(ch));
-						System.out.println("마디:" + madiOfNote);
 						char ch2[] = new char[2];
 						ch2[0] = s.charAt(4);
 						ch2[1] = s.charAt(5);
 						// 노트에 해당하는 라인
 						int line = Integer.parseInt(String.valueOf(ch2));
-						System.out.println("라인번호 : " + line);
 
 						String noteType = "";
 						String noteName = "";
@@ -81,7 +93,6 @@ public class BMS {
 						
 						// 라인에 있는 노트들
 						String parseNote = s.substring(7);
-						System.out.println(parseNote);
 						int index;
 						int add = 0;
 						switch (parseNote.length()) {
@@ -108,7 +119,6 @@ public class BMS {
 
 								int timing = madiOfNote * 8 + a;
 								beats.add(new Beat(startTime + gap * timing, noteType, noteName));
-								System.out.println(timing);
 								parseNote = parseNote.substring(index + 1);
 								add++;
 								// (String noteType, String noteName, int madiOrder, int noteOrder
@@ -122,7 +132,6 @@ public class BMS {
 								int a = (index + 1) / 2 + add * 2;
 								int timing = madiOfNote * 8 + a;
 								beats.add(new Beat(startTime + gap * timing, noteType, noteName));
-								System.out.println(timing);
 								parseNote = parseNote.substring(index + 1);
 								add++;
 
@@ -133,7 +142,6 @@ public class BMS {
 								int a = (index + 1 + add) / 2;
 								int timing = madiOfNote * 8 + a;
 								beats.add(new Beat(startTime + gap * timing, noteType, noteName));
-								System.out.println(timing);
 								parseNote = parseNote.substring(index + 1);
 								add += index + 1;
 							}

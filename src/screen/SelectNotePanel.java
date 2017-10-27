@@ -36,7 +36,7 @@ public class SelectNotePanel extends JPanel{
 		
 
 		backButton.setVisible(true);
-		backButton.setBounds(40, 50, 60, 60);
+		backButton.setBounds(30, 20, 60, 60);
 		backButton.setBorderPainted(false);
 		backButton.setContentAreaFilled(false);
 		backButton.setFocusPainted(false);
@@ -73,14 +73,14 @@ public class SelectNotePanel extends JPanel{
 		
 		note1_radio.setVisible(true);
 		note1_radio.setFont(new Font("³ª´®¹Ù¸¥°íµñ",Font.PLAIN, 30));
-		note1_radio.setBounds(300, 100, 200, 100);
+		note1_radio.setBounds(200, 70, 200, 100);
 		note1_radio.setBorderPainted(false);
 		note1_radio.setContentAreaFilled(false);
 		note1_radio.setFocusPainted(false);
 		
 		note2_radio.setVisible(true);
 		note2_radio.setFont(new Font("³ª´®¹Ù¸¥°íµñ",Font.PLAIN, 30));
-		note2_radio.setBounds(300, 350, 200, 100);
+		note2_radio.setBounds(200, 320, 200, 100);
 		note2_radio.setBorderPainted(false);
 		note2_radio.setContentAreaFilled(false);
 		note2_radio.setFocusPainted(false);
@@ -89,7 +89,7 @@ public class SelectNotePanel extends JPanel{
 		add(note2_radio);
 		
 		okayButton.setVisible(true);
-		okayButton.setBounds(1000, 600, 200, 100);
+		okayButton.setBounds(970, 570, 200, 100);
 		okayButton.setBorderPainted(false);
 		okayButton.setContentAreaFilled(false);
 		okayButton.setFocusPainted(false);

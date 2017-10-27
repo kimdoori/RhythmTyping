@@ -2,14 +2,14 @@ package game;
 
 public class Beat {
 	
-	private Integer time;//타이밍
+	private Double time;//타이밍
 	private String type;
 	private String noteName;//노트의 종류
 	
-	public Integer getTime() {
+	public Double getTime() {
 		return time;
 	}
-	public void setTime(Integer time) {
+	public void setTime(Double time) {
 		this.time = time;
 	}
 	
@@ -25,7 +25,7 @@ public class Beat {
 	public void setNoteName(String noteName) {
 		this.noteName = noteName;
 	}
-	public Beat(Integer time,String type,String noteName) {
+	public Beat(Double time,String type,String noteName) {
 		super();
 		this.time = time;
 		this.type=type;

@@ -18,45 +18,42 @@ import mysql.ConnectDB;
 import rhythm.Main;
 
 public class LoginPanel extends JPanel {
-	
+
 	private RhythmTyping frame;
 	private ImageIcon loginButtonEnteredImage = new ImageIcon(
-				Main.class.getResource("../images/loginButtonEntered.png"));
+			Main.class.getResource("../images/loginButtonEntered.png"));
 	private ImageIcon loginButtonBasicImage = new ImageIcon(Main.class.getResource("../images/loginButtonBasic.png"));
-		// login버튼
+	// login버튼
 	private JButton loginButton = new JButton(loginButtonBasicImage);
-		
+
 	private ImageIcon signupButtonEnteredImage = new ImageIcon(
 			Main.class.getResource("../images/signupButtonEntered.png"));
 	private ImageIcon signupButtonBasicImage = new ImageIcon(Main.class.getResource("../images/signupButtonBasic.png"));
 	// login버튼
 	private JButton signupButton = new JButton(signupButtonBasicImage);
-	
-	
+
 	private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/backButtonEntered.png"));
 	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/backButtonBasic.png"));
 	private JButton backButton = new JButton(backButtonBasicImage);
-	
+
 	private JTextField id;
 	private JPasswordField pw = new JPasswordField(20);
 	private JTextField name;
 
-	
-	private JLabel id_label= new JLabel("아이디 : ");
-	private JLabel pw_label= new JLabel("비밀번호 : ");
-	private JLabel name_label= new JLabel("이름 : ");
+	private JLabel id_label = new JLabel("아이디 : ");
+	private JLabel pw_label = new JLabel("비밀번호 : ");
+	private JLabel name_label = new JLabel("이름 : ");
 
-	ConnectDB connectDB = new ConnectDB();
-	
 	private JButton ok;
+
 	public LoginPanel(RhythmTyping rhythmTyping) {
-		frame=rhythmTyping;
-		setLayout(null); //패널의 Layout을 NULL
+		frame = rhythmTyping;
+		setLayout(null); // 패널의 Layout을 NULL
 		setBackground(new Color(255, 0, 0, 0));
-		setBounds(0, 30,Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT-30);
-		
+		setBounds(0, 30, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT - 30);
+
 		backButton.setVisible(true);
-		backButton.setBounds(40, 50, 60, 60);
+		backButton.setBounds(30, 20, 60, 60);
 		backButton.setBorderPainted(false);
 		backButton.setContentAreaFilled(false);
 		backButton.setFocusPainted(false);
@@ -84,7 +81,7 @@ public class LoginPanel extends JPanel {
 
 		});
 		add(backButton);
-		
+
 		loginButton.setBounds(400, 400, 200, 100);
 		loginButton.setBorderPainted(false);
 		loginButton.setContentAreaFilled(false);
@@ -113,34 +110,25 @@ public class LoginPanel extends JPanel {
 				String inputPw = pw.getText();
 				String inputName = name.getText();
 
-				//frame.change("selectMusicPanel");
+				// frame.change("selectMusicPanel");
 
-				
-				if(inputId.length() <3 || inputPw.length()<3) {
-					JOptionPane.showMessageDialog(null,"아이디와 비밀번호는 4자리 이상을 입력해주세요.", "정보 재 입력",JOptionPane.ERROR_MESSAGE);
-					//new ReInputDailog();
-				}else {
-					String message=null;
-					if((message = connectDB.checkInfo(inputId,inputPw,inputName)) == "true") {
-						id.setFocusable(false);
-						pw.setFocusable(false);
-						name.setFocusable(false);
-						frame.setFocusable(true);
-						frame.change("selectMusicPanel");
+				String message = null;
+				if ((message = RhythmTyping.connectDB.checkInfo(inputId, inputPw, inputName)) == "true") {
+					id.setFocusable(false);
+					pw.setFocusable(false);
+					name.setFocusable(false);
+					frame.setFocusable(true);
+					frame.change("selectMusicPanel");
 
-					}
-					else {
-						//TODO: 아이디/비밀번호/이름이 틀렸다.
-						JOptionPane.showMessageDialog(null,message, "로그인 실패",JOptionPane.ERROR_MESSAGE);
-					}
+				} else {
+					// TODO: 아이디/비밀번호/이름이 틀렸다.
+					JOptionPane.showMessageDialog(null, message, "로그인 실패", JOptionPane.ERROR_MESSAGE);
 				}
+
 			}
 		});
 		add(loginButton);
-	
 
-		
-		
 		signupButton.setBounds(690, 400, 200, 100);
 		signupButton.setBorderPainted(false);
 		signupButton.setContentAreaFilled(false);
@@ -168,55 +156,60 @@ public class LoginPanel extends JPanel {
 				@SuppressWarnings("deprecation")
 				String inputPw = pw.getText();
 				String inputName = name.getText();
-				//frame.change("selectMusicPanel");
+				// frame.change("selectMusicPanel");
 
-				if(!((inputId.length() >3 && inputId.length() <11)|| (inputPw.length()>3 && inputPw.length()<11)||(inputName.length() >2 && inputId.length() <6))) {//10이상은 아됨
-					JOptionPane.showMessageDialog(null,"아이디와 비밀번호는 4자리~10자리를 입력해주세요.\n이름은 3~5자리를 입력해주세요.", "정보 재 입력",JOptionPane.ERROR_MESSAGE);
-					//new ReInputDailog();
-				}else {
-					if(connectDB.checkJoinInfo(inputId,inputPw,inputName)) {
-					
-						JOptionPane.showMessageDialog(null,"회원가입이 정상적으로 처리되었습니다.", "회원가입 성공",JOptionPane.INFORMATION_MESSAGE);
-					
-					}else {
-						JOptionPane.showMessageDialog(null,"이미 존재하는 아이디입니다.", "회원가입 실패",JOptionPane.ERROR_MESSAGE);
+				if ((inputId.length() > 3 && inputId.length() < 9) && (inputPw.length() > 3 && inputPw.length() < 9)
+						&& (inputName.length() > 1 && inputName.length() < 5)) {// 10이상은 아됨
+					if (RhythmTyping.connectDB.checkJoinInfo(inputId, inputPw, inputName)) {
+
+						JOptionPane.showMessageDialog(null, "회원가입이 정상적으로 처리되었습니다.", "회원가입 성공",
+								JOptionPane.INFORMATION_MESSAGE);
+
+					} else {
+						JOptionPane.showMessageDialog(null, "이미 존재하는 아이디입니다.", "회원가입 실패", JOptionPane.ERROR_MESSAGE);
 					}
+				} else {
+					JOptionPane.showMessageDialog(null, "아이디와 비밀번호는 4자리~8자리를 입력해주세요.\n이름은 2~4자리를 입력해주세요.", "정보 재 입력",
+							JOptionPane.ERROR_MESSAGE);
+					// new ReInputDailog();
+
 				}
-				//TODO:
-				//입력한 정보가 DB에 없다면 가입성공 DIALOG 
+				// TODO:
+				// 입력한 정보가 DB에 없다면 가입성공 DIALOG
 			}
 
 		});
 		add(signupButton);
-		
+
 		id_label.setBounds(500, 140, 200, 50);
-		id_label.setFont(new Font("나눔바른고딕",Font.PLAIN, 20));
+		id_label.setFont(new Font("나눔바른고딕", Font.PLAIN, 20));
 		add(id_label);
-		
+
 		id = new JTextField();
 		id.setBounds(600, 150, 200, 30);
 		add(id);
 
 		pw_label.setBounds(480, 220, 200, 50);
-		pw_label.setFont(new Font("나눔바른고딕",Font.PLAIN, 20));
+		pw_label.setFont(new Font("나눔바른고딕", Font.PLAIN, 20));
 		add(pw_label);
 
 		pw.setEchoChar('*');
 		pw.setBounds(600, 230, 200, 30);
 		add(pw);
-		
+
 		name_label.setBounds(500, 300, 200, 50);
-		name_label.setFont(new Font("나눔바른고딕",Font.PLAIN, 20));
+		name_label.setFont(new Font("나눔바른고딕", Font.PLAIN, 20));
 		add(name_label);
-		
+
 		name = new JTextField();
 		name.setBounds(600, 310, 200, 30);
 		name_label.setVisible(true);
 		name.setVisible(true);
 		add(name);
-		
-		//TODO: 한글로 먼저 입력 가능하게
+
+		// TODO: 한글로 먼저 입력 가능하게
 	}
+
 	public void backSelect() {
 		frame.change("startPanel");
 	}
