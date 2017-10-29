@@ -9,8 +9,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 import rhythm.Main;
 
@@ -25,6 +27,8 @@ public class SelectNotePanel extends JPanel{
 	private ImageIcon okayButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/okayButtonEntered.png"));
 	private ImageIcon okayButtonBasicImage = new ImageIcon(Main.class.getResource("../images/okayButtonBasic.png"));
 	private JButton okayButton = new JButton(okayButtonBasicImage);
+	
+	private JLabel message;
 	
 	public static int chooseNote=1;//1이면 노트1, 2이면 노트 2
 	public SelectNotePanel(RhythmTyping rhythmTyping){
@@ -121,6 +125,13 @@ public class SelectNotePanel extends JPanel{
 
 		});
 		add(okayButton);
+		
+		message=new JLabel("한/영키를 눌러 영어로 맞춰주세요.");
+		message.setBounds(500, 590, 400, 50);
+		message.setFont(new Font("나눔바른고딕", Font.BOLD, 25));
+	
+		add(message);
+
 		
 	}
 	public void backSelect() {

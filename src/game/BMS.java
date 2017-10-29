@@ -106,7 +106,6 @@ public class BMS {
 
 								int timing = madiOfNote * 8 + a;
 								beats.add(new Beat(startTime + gap * timing, noteType, noteName));
-								System.out.println(timing);
 								parseNote = parseNote.substring(index + 1);
 								add++;
 								// (String noteType, String noteName, int madiOrder, int noteOrder

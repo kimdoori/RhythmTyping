@@ -30,7 +30,7 @@ public class GamePanel extends JPanel {
 		setBackground(new Color(255, 0, 0, 0));
 		setBounds(0, 30, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT - 30);
 		
-		
+	
 		
 		backButton.setVisible(true);
 		backButton.setBounds(30, 55, 60, 60);

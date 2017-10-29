@@ -50,7 +50,6 @@ public class Game extends Thread {
 		this.titleName = titleName;
 		this.musicTitle = musicTitle;
 		gameMusic = new Music(this.musicTitle, false);
-		System.out.println(titleName);
 
 	}
 

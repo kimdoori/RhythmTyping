@@ -328,7 +328,6 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			isGameScreen=true;
 			isResultScreen=false;
 
-			System.out.println(SelectMusicPanel.songIndex);
 			gameStart(SelectMusicPanel.songIndex);//선택한 곡 번호 -->게임 시작
 		}
 		else if (panelName.equals("resultPanel")) {
@@ -358,12 +357,12 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println(KeyEvent.getKeyText(e.getKeyCode()));
+	//	System.out.println(KeyEvent.getKeyText(e.getKeyCode()));
 		if (game == null) {
 			return;
 		}
 		input += KeyEvent.getKeyText(e.getKeyCode());
-		System.out.println(input);
+	//	System.out.println(input);
 		game.press();
 	}
 	@Override

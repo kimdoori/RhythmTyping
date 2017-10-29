@@ -64,7 +64,6 @@ public class RecordPanel extends JPanel {
 		int[] y= {0,0,300,300};
 		String[] songTitle= {"°­³²½ºÅ¸ÀÏ - PSY", "D - µò","»¡°£¸À - ·¹µåº§ºª", "»ßµüÇÏ°Ô - GD"};
 		for(int i=0;i<4;i++) {
-			System.out.println("³ë·¡¸®½ºÆ®");
 		JScrollPane songScrollPanel = new JScrollPane();
 		songScrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		songScrollPanel.getVerticalScrollBar().setUnitIncrement(16);
