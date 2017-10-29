@@ -84,12 +84,16 @@ public class Game extends Thread {
 		g.setFont(new Font("나눔바른고딕", Font.BOLD, 30));
 		g.drawString(titleName, 50, 61);
 		g.setFont(new Font("나눔바른고딕", Font.BOLD, 25));
-		g.drawString("노래 최고 점수   : " + RhythmTyping.score[SelectMusicPanel.songIndex][RhythmTyping.connectDB.rowcount-1], 700, 62);
+		g.drawString("노래 최고 점수   : " + RhythmTyping.score[SelectMusicPanel.songIndex][0], 700, 62);
 		g.drawString("현재 점수   : " + score.toString(), 1000, 62);
 	}
 
 	public void press() {
-		judge();
+		if(noteList.size()!=0) {
+			judge();
+		}else {
+			RhythmTyping.input="";
+		}
 		noteRouteImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
 	}
 
@@ -121,7 +125,6 @@ public class Game extends Thread {
 		gameMusic.start();
 		// 현재상태에서 노트가 떨어지지않은 경우에는 무한정반복하는 것이 아니라 텀을 두면서 노트를 떨어트릴 수 있기 때문에 훨씬 더 효율적
 		// 애니메이션 매끄럽게
-		int zeroCount=0;
 		while (i < beats.size() && !isInterrupted()) {// 현재곡이 재생되는 시점을 실시간으로 확인해서 해당위치에 걸맞는 노트를 떨어트림
 			boolean dropped = false;
 			int musicTime=gameMusic.getTime();
@@ -141,9 +144,7 @@ public class Game extends Thread {
 
 				}
 			}
-			
 			if(musicTime == 0 && i>=5 && noteSize==0) {
-
 				RhythmTyping.connectDB.updateScore(score.toString());
 				frame.change("resultPanel");
 				RhythmTyping.game.close();
@@ -161,14 +162,15 @@ public class Game extends Thread {
 	
 	
 	public void judge() {
-		if(noteList==null)
+		if(noteList.size()==0) {
+			RhythmTyping.input="";
 			return;
+		}
 		Note note = noteList.get(0);// 하나의 노트씩 얻어내서
 		if ((RhythmTyping.input).toLowerCase().equals(note.getNoteType()) && "long".equals(note.getType())) {
 			judgeEvent(note.judge());
 			RhythmTyping.input = "";
-		} else if ((RhythmTyping.input).toUpperCase().equals(note.getNoteType()) && "short".equals(note.getType())) {// 입력한
-																									// 일치하다면
+		} else if ((RhythmTyping.input).toUpperCase().equals(note.getNoteType()) && "short".equals(note.getType())) {// 입력한																// 일치하다면
 			// 해당노트의 판정을 가져와서 이미지 변경하는 함수에
 			judgeEvent(note.judge());
 			RhythmTyping.input = "";

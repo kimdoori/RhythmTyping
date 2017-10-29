@@ -34,7 +34,7 @@ public class SelectMusicPanel extends JPanel{
 	JButton goButton = new JButton();
 	
 	public static int songIndex=0;
-	public static String[] bmsName= {"gangnamstyle","D","gangnamstyle","gangnamstyle"};
+	public static String[] bmsName= {"gangnamstyle","D","redflavor","cracked"};
 
 	//private Image musicTrack = new ImageIcon(Main.class.getResource("../images/musicTrack.png")).getImage();
 
@@ -122,7 +122,7 @@ public class SelectMusicPanel extends JPanel{
 			title.setBounds(100, 2, 400, 100);
 			title.setFont(font);
 			
-			JLabel score = new JLabel("최고점수   : "+RhythmTyping.score[i][RhythmTyping.connectDB.rowcount-1]+"      아이디   : "+RhythmTyping.user[i][RhythmTyping.connectDB.rowcount-1]);
+			JLabel score = new JLabel("최고점수   : "+RhythmTyping.score[i][0]+"      아이디   : "+RhythmTyping.user[i][0]);
 			score.setBounds(500, 2, 500, 100);
 			score.setFont(font);
 			

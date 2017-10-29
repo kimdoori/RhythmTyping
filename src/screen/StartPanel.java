@@ -181,7 +181,7 @@ public class StartPanel extends JPanel {
 				else {
 				RhythmTyping.playID=null;
 				RhythmTyping.playScore=null;
-				RhythmTyping.playScore= new String[4];
+				RhythmTyping.playScore= new int[4];
 				JOptionPane.showMessageDialog(null,"로그아웃 되었습니다.", "로그아웃",JOptionPane.INFORMATION_MESSAGE);
 				}
 

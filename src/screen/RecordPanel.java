@@ -87,12 +87,12 @@ public class RecordPanel extends JPanel {
 		songInfo.setFont(infoFont);
 		add(songInfo);
 		
-		for(int j =RhythmTyping.score[i].length-1;j>=0;j--) {
+		for(int j =0;j<RhythmTyping.score[i].length;j++) {
 			//노래 패널
 			JPanel songPanel=new JPanel();
 			songPanel.setBackground(new Color(255, 10, 10, 10)); // 컴포넌트 배경을 하얀색으
 			songPanel.setLayout(null);
-			songPanel.setBounds(0, (RhythmTyping.score[i].length-1-j)*50, 640, 50);
+			songPanel.setBounds(0, j*50, 640, 50);
 
 			JLabel line=new JLabel("");
 			line.setOpaque(true);//이거를 사용해야함

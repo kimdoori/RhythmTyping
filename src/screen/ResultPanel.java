@@ -56,7 +56,7 @@ public class ResultPanel extends JPanel {
 		my_max_label.setFont(new Font("³ª´®¹Ù¸¥°íµñ",Font.BOLD, 30));
 		add(my_max_label);
 		
-		my_max_score = new JLabel(RhythmTyping.playScore[SelectMusicPanel.songIndex]);
+		my_max_score = new JLabel(String.valueOf(RhythmTyping.playScore[SelectMusicPanel.songIndex]));
 		my_max_score.setBounds(600, 290, 200, 50);
 		my_max_score.setFont(new Font("³ª´®¹Ù¸¥°íµñ",Font.PLAIN, 20));
 		add(my_max_score);	

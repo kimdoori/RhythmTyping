@@ -124,7 +124,7 @@ public class ConnectDB {
 			String[] songTable= {"gangnamstyle","D","redflavor","cracked"};
 			
 			for(int i=0;i<songTable.length;i++) {
-				queryString = "INSERT INTO "+songTable[i]+" VALUES ('" + inputId + "', '0')";
+				queryString = "INSERT INTO "+songTable[i]+" VALUES ('" + inputId + "', 0)";
 				resultSet = statement.executeUpdate(queryString);
 			}
 			
@@ -145,8 +145,8 @@ public class ConnectDB {
 	public void getSongRecord() {
 		try {
 
-			String[] queryString = { "SELECT * FROM gangnamstyle ORDER BY score", "SELECT * FROM D ORDER BY score",
-					"SELECT * FROM redflavor ORDER BY score", "SELECT * FROM cracked ORDER BY score" };
+			String[] queryString = { "SELECT * FROM gangnamstyle ORDER BY score DESC", "SELECT * FROM D ORDER BY score DESC",
+					"SELECT * FROM redflavor ORDER BY score DESC", "SELECT * FROM cracked ORDER BY score DESC" };
 //			gangnamScore;
 //			public static String[] DScore;
 //			public static String[] redflavorScore;
@@ -155,30 +155,25 @@ public class ConnectDB {
 			resultSet = statement.executeQuery(queryString[0]);
 			resultSet.last();      
 	        rowcount = resultSet.getRow();
-			RhythmTyping.score= new String[4][rowcount];
+			RhythmTyping.score= new int[4][rowcount];
 			RhythmTyping.user= new String[4][rowcount];
 			for(int i=0;i<queryString.length;i++) {
 				resultSet = statement.executeQuery(queryString[i]);
 
 		        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();		
-				int[] sortArray=new int[rowcount];
 				int j=0;
 				while (resultSet.next()) {
-					RhythmTyping.score[i][j]=resultSet.getString("score");
+					RhythmTyping.score[i][j]=resultSet.getInt("score");
 
 					RhythmTyping.user[i][j]=resultSet.getString("id");	
-					sortArray[j]=Integer.parseInt(RhythmTyping.score[i][j]);
 					if(RhythmTyping.playID!=null && RhythmTyping.playID.equals(RhythmTyping.user[i][j])) {
 						RhythmTyping.playScore[i]=RhythmTyping.score[i][j];
 					}
 					j++;
 
 				}
-			    Arrays.sort(sortArray);
+			   // Arrays.sort(RhythmTyping.score[i]);
 			    
-			    for(int k=0;k<rowcount;k++) {
-			    	RhythmTyping.score[i][k]=String.valueOf(sortArray[k]);
-			    }
 
 			}
 			
@@ -227,7 +222,7 @@ public class ConnectDB {
 					int resultSet = statement.executeUpdate(queryString);
 					// System.out.println(resultSetMetaData.getColumnName(2));
 					
-					RhythmTyping.playScore[SelectMusicPanel.songIndex]=userScore;
+					RhythmTyping.playScore[SelectMusicPanel.songIndex]=Integer.parseInt(userScore);
 				}
 		
 			}

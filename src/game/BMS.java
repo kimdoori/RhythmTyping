@@ -23,10 +23,13 @@ public class BMS {
 			gap =225; // 최소 박자의 간격 8분의 1이니까 1000/8 //125
 			break;
 		case 1:
-			gap = 250;
+			gap = 250;//237//220
 			break;
-		default:
-			gap = 125;
+		case 2://125
+			gap =260;//노트30개 --> 260 안멈춤 //255 적당
+			break;
+		case 3:
+			gap =250; //250
 			break;
 		}
 		

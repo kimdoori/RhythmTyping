@@ -29,7 +29,7 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	private Image screenImage;
 	private Graphics screenGraphic;
 
-	public static String[][] score;
+	public static int[][] score;
 	public static String[][] user;
 	
 	
@@ -72,7 +72,7 @@ public class RhythmTyping extends JFrame implements KeyListener {
 	
 	
 	public static String playID;
-	public static String playScore[] = new String[4];
+	public static int playScore[] = new int[4];
 	
 	private JPanel nowPanel = new StartPanel(this);// 현재 패널 -->처음은 시작화면 패널로
 
@@ -343,6 +343,8 @@ public class RhythmTyping extends JFrame implements KeyListener {
 			isNoteScreen=false;
 			isGameScreen=false;
 			isResultScreen=true;
+			connectDB.getSongRecord();
+
 		}
 	}
 	
