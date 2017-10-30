@@ -93,7 +93,7 @@ public class RhythmTyping extends JFrame implements KeyListener {
 		introMusic.start();// 인트로 음악 실행
 
 		setUndecorated(true); // 기본적으로 존재하는 메뉴바가 보이지 않게
-		setTitle("RhythmTyping");
+		setTitle("RhythmTyping - 2501 김두리 2514 이경민");
 		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 		setResizable(false);// Frame 사이즈 변경 불가능
 		setLocationRelativeTo(null);// Frames이 정 중앙에 뜨게

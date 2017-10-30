@@ -27,12 +27,10 @@ public class ConnectDB {
 	public int rowcount;
 	public ConnectDB() {
 		super();
-		// ② 연결 [Connection]
 		try {
 			Class.forName(driverName);
 
 			connection = DriverManager.getConnection(url, user, password);
-			// ② 연결 [Statement]
 			statement = connection.createStatement();
 
 		} catch (ClassNotFoundException e) {
