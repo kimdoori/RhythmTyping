@@ -15,25 +15,29 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import mysql.ConnectDB;
-import rhythm.Main;
+import rhythm.RhythmMain;
 
-public class LoginPanel extends JPanel {
+public class LoginPanel extends JPanel {//로그인화면
 
 	private RhythmTyping frame;
-	private ImageIcon loginButtonEnteredImage = new ImageIcon(
-			Main.class.getResource("../images/loginButtonEntered.png"));
-	private ImageIcon loginButtonBasicImage = new ImageIcon(Main.class.getResource("../images/loginButtonBasic.png"));
-	// login버튼
+	
+	// 로그인 버튼
+	private ImageIcon loginButtonEnteredImage = new ImageIcon(RhythmMain.class.getResource("../images/loginButtonEntered.png"));
+	private ImageIcon loginButtonBasicImage = new ImageIcon(RhythmMain.class.getResource("../images/loginButtonBasic.png"));
 	private JButton loginButton = new JButton(loginButtonBasicImage);
 
+	// 회원가입 버튼
 	private ImageIcon signupButtonEnteredImage = new ImageIcon(
-			Main.class.getResource("../images/signupButtonEntered.png"));
-	private ImageIcon signupButtonBasicImage = new ImageIcon(Main.class.getResource("../images/signupButtonBasic.png"));
-	// login버튼
+			RhythmMain.class.getResource("../images/signupButtonEntered.png"));
+	private ImageIcon signupButtonBasicImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/signupButtonBasic.png"));
 	private JButton signupButton = new JButton(signupButtonBasicImage);
 
-	private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/backButtonEntered.png"));
-	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/backButtonBasic.png"));
+	//뒤로가기 버튼
+	private ImageIcon backButtonEnteredImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/backButtonEntered.png"));
+	private ImageIcon backButtonBasicImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/backButtonBasic.png"));
 	private JButton backButton = new JButton(backButtonBasicImage);
 
 	private JTextField id;
@@ -44,13 +48,11 @@ public class LoginPanel extends JPanel {
 	private JLabel pw_label = new JLabel("비밀번호 : ");
 	private JLabel name_label = new JLabel("이름 : ");
 
-	private JButton ok;
-
 	public LoginPanel(RhythmTyping rhythmTyping) {
 		frame = rhythmTyping;
 		setLayout(null); // 패널의 Layout을 NULL
 		setBackground(new Color(255, 0, 0, 0));
-		setBounds(0, 30, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT - 30);
+		setBounds(0, 30, RhythmMain.SCREEN_WIDTH, RhythmMain.SCREEN_HEIGHT - 30);
 
 		backButton.setVisible(true);
 		backButton.setBounds(30, 20, 60, 60);
@@ -73,9 +75,8 @@ public class LoginPanel extends JPanel {
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
-				// 메인화면으로 돌아가는 이벤트
-				backSelect();
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 시작화면으로
+				frame.change("startPanel");
 
 			}
 
@@ -104,16 +105,15 @@ public class LoginPanel extends JPanel {
 
 			// TODO:화면전환
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 로그인
 				String inputId = id.getText();
 				@SuppressWarnings("deprecation")
 				String inputPw = pw.getText();
 				String inputName = name.getText();
 
-				// frame.change("selectMusicPanel");
-
 				String message = null;
-				if ((message = RhythmTyping.connectDB.checkInfo(inputId, inputPw, inputName)) == "true") {
+				if ((message = RhythmTyping.connectDB.checkInfo(inputId,
+						inputPw, inputName)) == "true") {//입력한 정보의 플레이어가 존재한다면
 					id.setFocusable(false);
 					pw.setFocusable(false);
 					name.setFocusable(false);
@@ -121,8 +121,8 @@ public class LoginPanel extends JPanel {
 					frame.change("selectMusicPanel");
 
 				} else {
-					// TODO: 아이디/비밀번호/이름이 틀렸다.
-					JOptionPane.showMessageDialog(null, message, "로그인 실패", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, message, "로그인 실패",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
@@ -151,31 +151,32 @@ public class LoginPanel extends JPanel {
 
 			// TODO:화면전환
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 회원가입
 				String inputId = id.getText();
 				@SuppressWarnings("deprecation")
 				String inputPw = pw.getText();
 				String inputName = name.getText();
-				// frame.change("selectMusicPanel");
+				if ((inputId.length() > 3 && inputId.length() < 9)
+						&& (inputPw.length() > 3 && inputPw.length() < 9)
+						&& (inputName.length() > 1 && inputName.length() < 5)) {// 10이상은
+																				// 안됨
+					if (RhythmTyping.connectDB.checkJoinInfo(inputId, inputPw,
+							inputName)) {//입력한 정보가 플레이어에 없다면
 
-				if ((inputId.length() > 3 && inputId.length() < 9) && (inputPw.length() > 3 && inputPw.length() < 9)
-						&& (inputName.length() > 1 && inputName.length() < 5)) {// 10이상은 아됨
-					if (RhythmTyping.connectDB.checkJoinInfo(inputId, inputPw, inputName)) {
-
-						JOptionPane.showMessageDialog(null, "회원가입이 정상적으로 처리되었습니다.", "회원가입 성공",
+						JOptionPane.showMessageDialog(null,
+								"회원가입이 정상적으로 처리되었습니다.", "회원가입 성공",
 								JOptionPane.INFORMATION_MESSAGE);
 
 					} else {
-						JOptionPane.showMessageDialog(null, "이미 존재하는 아이디입니다.", "회원가입 실패", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "이미 존재하는 아이디입니다.",
+								"회원가입 실패", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "아이디와 비밀번호는 4자리~8자리를 입력해주세요.\n이름은 2~4자리를 입력해주세요.", "정보 재 입력",
-							JOptionPane.ERROR_MESSAGE);
-					// new ReInputDailog();
+					JOptionPane.showMessageDialog(null,
+							"아이디와 비밀번호는 4자리~8자리를 입력해주세요.\n이름은 2~4자리를 입력해주세요.",
+							"정보 재 입력", JOptionPane.ERROR_MESSAGE);
 
 				}
-				// TODO:
-				// 입력한 정보가 DB에 없다면 가입성공 DIALOG
 			}
 
 		});
@@ -207,10 +208,6 @@ public class LoginPanel extends JPanel {
 		name.setVisible(true);
 		add(name);
 
-		// TODO: 한글로 먼저 입력 가능하게
 	}
 
-	public void backSelect() {
-		frame.change("startPanel");
-	}
 }

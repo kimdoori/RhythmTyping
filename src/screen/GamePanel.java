@@ -14,24 +14,25 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import rhythm.Main;
+import rhythm.RhythmMain;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel {//게임화면
 	private RhythmTyping frame;
 
-	private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/backButtonEntered.png"));
-	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/backButtonBasic.png"));
+	//뒤로가기 버튼
+	private ImageIcon backButtonEnteredImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/backButtonEntered.png"));
+	private ImageIcon backButtonBasicImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/backButtonBasic.png"));
 	private JButton backButton = new JButton(backButtonBasicImage);
 
 	public GamePanel(RhythmTyping rhythmTyping) {
 		frame = rhythmTyping;
-		
+
 		setLayout(null); // 패널의 Layout을 NULL
 		setBackground(new Color(255, 0, 0, 0));
-		setBounds(0, 30, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT - 30);
-		
-	
-		
+		setBounds(0, 30, RhythmMain.SCREEN_WIDTH, RhythmMain.SCREEN_HEIGHT - 30);
+
 		backButton.setVisible(true);
 		backButton.setBounds(30, 55, 60, 60);
 		backButton.setBorderPainted(false);
@@ -53,10 +54,9 @@ public class GamePanel extends JPanel {
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
-				// 메인화면으로 돌아가는 이벤트
-				backSelect();
-
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 노래선택화면으로
+				RhythmTyping.game.close();// 현재실행되고 있는 게임 종료
+				frame.change("selectMusicPanel");
 			}
 
 		});
@@ -64,10 +64,5 @@ public class GamePanel extends JPanel {
 
 	}
 
-	public void backSelect() {
-		RhythmTyping.game.close();// 현재실행되고 있는 게임 종료
-		frame.change("selectMusicPanel");
-	}
 
-	
 }

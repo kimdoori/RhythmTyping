@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import javax.swing.ImageIcon;
 
 import javazoom.jl.player.Player;
-import rhythm.Main;
+import rhythm.RhythmMain;
 
 public class Music extends Thread {
 	// player
@@ -22,7 +22,7 @@ public class Music extends Thread {
 	public Music(String name, boolean isLoop) {
 		try {
 			this.isLoop = isLoop;
-			file = new File(Main.class.getResource("../music/" + name).toURI());
+			file = new File(RhythmMain.class.getResource("../music/" + name).toURI());
 			fis = new FileInputStream(file);
 			bis = new BufferedInputStream(fis);
 			// player에 해당파일을 담는다.
@@ -60,7 +60,6 @@ public class Music extends Thread {
 				bis = new BufferedInputStream(fis);
 				// player에 해당파일을 담는다.
 				player = new Player(bis);
-				
 
 			} while (isLoop);
 

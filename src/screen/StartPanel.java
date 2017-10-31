@@ -11,51 +11,57 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import rhythm.Main;
+import rhythm.RhythmMain;
 
-public class StartPanel extends JPanel {
+public class StartPanel extends JPanel {//시작화면
 
-	// start버튼에 넣을 이미지
+	// 시작버튼에 넣을 이미지
 	private ImageIcon startButtonEnteredImage = new ImageIcon(
-			Main.class.getResource("../images/startButtonEntered.png"));
-	private ImageIcon startButtonBasicImage = new ImageIcon(Main.class.getResource("../images/startButtonBasic.png"));
-	// start버튼
+			RhythmMain.class.getResource("../images/startButtonEntered.png"));
+	private ImageIcon startButtonBasicImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/startButtonBasic.png"));
+	// 시작버튼
 	private JButton startButton = new JButton(startButtonBasicImage);
 
-
-	// how버튼에 넣을 이미지
-	private ImageIcon howButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/howButtonEntered.png"));
-	private ImageIcon howButtonBasicImage = new ImageIcon(Main.class.getResource("../images/howButtonBasic.png"));
-	// how버튼
+	// 방법버튼에 넣을 이미지
+	private ImageIcon howButtonEnteredImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/howButtonEntered.png"));
+	private ImageIcon howButtonBasicImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/howButtonBasic.png"));
+	// 방법버튼
 	private JButton howButton = new JButton(howButtonBasicImage);
 
-	// record버튼에 넣을 이미지
+	// 기록버튼에 넣을 이미지
 	private ImageIcon recordButtonEnteredImage = new ImageIcon(
-			Main.class.getResource("../images/recordButtonEntered.png"));
-	private ImageIcon recordButtonBasicImage = new ImageIcon(Main.class.getResource("../images/recordButtonBasic.png"));
-	// record버튼
+			RhythmMain.class.getResource("../images/recordButtonEntered.png"));
+	private ImageIcon recordButtonBasicImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/recordButtonBasic.png"));
+	// 기록버튼
 	private JButton recordButton = new JButton(recordButtonBasicImage);
-	
-		private ImageIcon quitButtonEnteredImage = new ImageIcon(
-				Main.class.getResource("../images/quitButtonEntered.png"));
-		private ImageIcon quitButtonBasicImage = new ImageIcon(Main.class.getResource("../images/quitButtonBasic.png"));
-		// record버튼
-		private JButton quitButton = new JButton(quitButtonBasicImage);
-	
-		// record버튼에 넣을 이미지
-		private ImageIcon logoutButtonEnteredImage = new ImageIcon(
-				Main.class.getResource("../images/logoutButtonEntered.png"));
-		private ImageIcon logoutButtonBasicImage = new ImageIcon(Main.class.getResource("../images/logoutButtonBasic.png"));
-		// record버튼
-		private JButton logoutButton = new JButton(logoutButtonBasicImage);
-		
+
+	//종료버튼
+	private ImageIcon quitButtonEnteredImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/quitButtonEntered.png"));
+	private ImageIcon quitButtonBasicImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/quitButtonBasic.png"));
+	// 종료버튼
+	private JButton quitButton = new JButton(quitButtonBasicImage);
+
+	// 로그아웃버튼에 넣을 이미지
+	private ImageIcon logoutButtonEnteredImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/logoutButtonEntered.png"));
+	private ImageIcon logoutButtonBasicImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/logoutButtonBasic.png"));
+	// 로그아웃버튼
+	private JButton logoutButton = new JButton(logoutButtonBasicImage);
+
 	private RhythmTyping frame;
 
 	public StartPanel(RhythmTyping rhythmTyping) {
 		frame = rhythmTyping;
 		setLayout(null); // 패널의 Layout을 NULL
 		setBackground(new Color(255, 0, 0, 0));
-		setBounds(0, 30, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT - 30);
+		setBounds(0, 30, RhythmMain.SCREEN_WIDTH, RhythmMain.SCREEN_HEIGHT - 30);
 
 		startButton.setBounds(118, 280, 200, 100);
 		startButton.setBorderPainted(false);
@@ -79,20 +85,17 @@ public class StartPanel extends JPanel {
 
 			// TODO:화면전환
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 로그인 또는 노래 선택 화면으로
 				// 버튼 안보이게
-				if(RhythmTyping.playID!=null)
+				if (RhythmTyping.playID != null)
 					frame.change("selectMusicPanel");
 				else
 					frame.change("loginPanel");
-				//frame.change("resultPanel");
-				
-				
+
 			}
 
 		});
 		add(startButton);
-
 
 		howButton.setBounds(118, 390, 200, 130);
 		howButton.setBorderPainted(false);
@@ -114,7 +117,7 @@ public class StartPanel extends JPanel {
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 방법화면으로
 				frame.change("howPanel");
 			}
 
@@ -141,18 +144,15 @@ public class StartPanel extends JPanel {
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 기록화면으로
 				// 기록 화면으로
 				RhythmTyping.connectDB.getSongRecord();
-				
 				frame.change("recordPanel");
-				//frame.change("resultPanel");
 			}
 
 		});
 		add(recordButton);
 
-		
 		logoutButton.setBounds(1100, 600, 60, 60);
 		logoutButton.setBorderPainted(false);
 		logoutButton.setContentAreaFilled(false);
@@ -173,24 +173,24 @@ public class StartPanel extends JPanel {
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
-				if(RhythmTyping.playID==null) {
-					JOptionPane.showMessageDialog(null,"로그인이 되어있지않습니다.", "로그아웃",JOptionPane.INFORMATION_MESSAGE);
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 로그아웃
+				if (RhythmTyping.playID == null) {
+					JOptionPane.showMessageDialog(null, "로그인이 되어있지않습니다.",
+							"로그아웃", JOptionPane.INFORMATION_MESSAGE);
 
-				}
-				else {
-				RhythmTyping.playID=null;
-				RhythmTyping.playScore=null;
-				RhythmTyping.playScore= new int[4];
-				JOptionPane.showMessageDialog(null,"로그아웃 되었습니다.", "로그아웃",JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					RhythmTyping.playID = null;
+					RhythmTyping.playScore = null;
+					RhythmTyping.playScore = new int[4];
+					JOptionPane.showMessageDialog(null, "로그아웃 되었습니다.", "로그아웃",
+							JOptionPane.INFORMATION_MESSAGE);
 				}
 
 			}
 
 		});
 		add(logoutButton);
-		
-		
+
 		quitButton.setBounds(1200, 600, 60, 60);
 		quitButton.setBorderPainted(false);
 		quitButton.setContentAreaFilled(false);
@@ -211,15 +211,14 @@ public class StartPanel extends JPanel {
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 종료
 				System.exit(0);
 
 			}
 
 		});
 		add(quitButton);
-		
-		
+
 	}
 
 }

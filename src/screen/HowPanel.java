@@ -9,21 +9,23 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import rhythm.Main;
+import rhythm.RhythmMain;
 
-public class HowPanel extends JPanel {
+public class HowPanel extends JPanel {//게임방법화면
 	private RhythmTyping frame;
-	//TODO: 화면 스르륵
-	private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/backButtonEntered.png"));
-	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/backButtonBasic.png"));
-	private JButton backButton = new JButton(backButtonBasicImage);
 	
+	//뒤로가기 버튼
+	private ImageIcon backButtonEnteredImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/backButtonEntered.png"));
+	private ImageIcon backButtonBasicImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/backButtonBasic.png"));
+	private JButton backButton = new JButton(backButtonBasicImage);
+
 	public HowPanel(RhythmTyping rhythmTyping) {
-		frame=rhythmTyping;
-		setLayout(null); //패널의 Layout을 NULL
+		frame = rhythmTyping;
+		setLayout(null); // 패널의 Layout을 NULL
 		setBackground(new Color(255, 0, 0, 0));
-		setBounds(0, 30,Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT-30);
-		
+		setBounds(0, 30, RhythmMain.SCREEN_WIDTH, RhythmMain.SCREEN_HEIGHT - 30);
 
 		backButton.setVisible(true);
 		backButton.setBounds(30, 20, 60, 60);
@@ -46,18 +48,16 @@ public class HowPanel extends JPanel {
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
-				// 메인화면으로 돌아가는 이벤트
-				backSelect();
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 시작화면으로
+				frame.change("startPanel");
 
 			}
 
 		});
 		add(backButton);
-		
+
 	}
-	public void backSelect() {
-		frame.change("startPanel");
-	}
+
+
 
 }

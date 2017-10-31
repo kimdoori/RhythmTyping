@@ -14,30 +14,37 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import rhythm.Main;
+import rhythm.RhythmMain;
 
-public class SelectNotePanel extends JPanel{
+public class SelectNotePanel extends JPanel {//노트선택화면
 	private RhythmTyping frame;
 
 	// 뒤로가기버튼
-	private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/backButtonEntered.png"));
-	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/backButtonBasic.png"));
+	private ImageIcon backButtonEnteredImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/backButtonEntered.png"));
+	private ImageIcon backButtonBasicImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/backButtonBasic.png"));
 	private JButton backButton = new JButton(backButtonBasicImage);
 
-	private ImageIcon okayButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/okayButtonEntered.png"));
-	private ImageIcon okayButtonBasicImage = new ImageIcon(Main.class.getResource("../images/okayButtonBasic.png"));
+	//오케이버튼
+	private ImageIcon okayButtonEnteredImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/okayButtonEntered.png"));
+	private ImageIcon okayButtonBasicImage = new ImageIcon(
+			RhythmMain.class.getResource("../images/okayButtonBasic.png"));
 	private JButton okayButton = new JButton(okayButtonBasicImage);
+
 	
-	private JLabel message;
-	
-	public static int chooseNote=1;//1이면 노트1, 2이면 노트 2
-	public SelectNotePanel(RhythmTyping rhythmTyping){
+	private JLabel message;//한영 입력 메시지
+
+	//선택한 노트 종류
+	public static int chooseNote = 1;// 1이면 노트1, 2이면 노트 2
+
+	public SelectNotePanel(RhythmTyping rhythmTyping) {
 		frame = rhythmTyping;
 
-		setLayout(null); //패널의 Layout을 NULL
+		setLayout(null); // 패널의 Layout을 NULL
 		setBackground(new Color(255, 0, 0, 0));
-		setBounds(0, 30,Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT-30);
-		
+		setBounds(0, 30, RhythmMain.SCREEN_WIDTH, RhythmMain.SCREEN_HEIGHT - 30);
 
 		backButton.setVisible(true);
 		backButton.setBounds(30, 20, 60, 60);
@@ -60,38 +67,37 @@ public class SelectNotePanel extends JPanel{
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
-				// 메인화면으로 돌아가는 이벤트
-				backSelect();
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 노래 선택 화면으로
+				frame.change("selectMusicPanel");
 
 			}
 
 		});
 		add(backButton);
-		
-		ButtonGroup noteGroup=new ButtonGroup();
-		JRadioButton note1_radio=new JRadioButton("노트 1",true);
-		JRadioButton note2_radio=new JRadioButton("노트 2");
+
+		ButtonGroup noteGroup = new ButtonGroup();
+		JRadioButton note1_radio = new JRadioButton("노트 1", true);
+		JRadioButton note2_radio = new JRadioButton("노트 2");
 		noteGroup.add(note1_radio);
 		noteGroup.add(note2_radio);
-		
+
 		note1_radio.setVisible(true);
-		note1_radio.setFont(new Font("나눔바른고딕",Font.PLAIN, 30));
+		note1_radio.setFont(new Font("나눔바른고딕", Font.PLAIN, 30));
 		note1_radio.setBounds(200, 70, 200, 100);
 		note1_radio.setBorderPainted(false);
 		note1_radio.setContentAreaFilled(false);
 		note1_radio.setFocusPainted(false);
-		
+
 		note2_radio.setVisible(true);
-		note2_radio.setFont(new Font("나눔바른고딕",Font.PLAIN, 30));
+		note2_radio.setFont(new Font("나눔바른고딕", Font.PLAIN, 30));
 		note2_radio.setBounds(200, 320, 200, 100);
 		note2_radio.setBorderPainted(false);
 		note2_radio.setContentAreaFilled(false);
 		note2_radio.setFocusPainted(false);
-		
+
 		add(note1_radio);
 		add(note2_radio);
-		
+
 		okayButton.setVisible(true);
 		okayButton.setBounds(970, 570, 200, 100);
 		okayButton.setBorderPainted(false);
@@ -113,11 +119,11 @@ public class SelectNotePanel extends JPanel{
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때
-				if(note1_radio.isSelected()) {//1이 선택되었을때
-					chooseNote=0;
-				}else {
-					chooseNote=1;
+			public void mousePressed(MouseEvent e) {// 버튼이 클릭됬을 때 게임 화면으로
+				if (note1_radio.isSelected()) {// 1이 선택되었을때
+					chooseNote = 0;
+				} else {
+					chooseNote = 1;
 				}
 				frame.change("gamePanel");
 
@@ -125,16 +131,14 @@ public class SelectNotePanel extends JPanel{
 
 		});
 		add(okayButton);
-		
-		message=new JLabel("한/영키를 눌러 영어로 맞춰주세요.");
+
+		message = new JLabel("한/영키를 눌러 영어로 맞춰주세요.");
 		message.setBounds(500, 590, 400, 50);
 		message.setFont(new Font("나눔바른고딕", Font.BOLD, 25));
-	
+
 		add(message);
 
-		
 	}
-	public void backSelect() {
-		frame.change("selectMusicPanel");
-	}
+
+
 }
