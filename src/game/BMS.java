@@ -4,17 +4,36 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-import rhythm.RhythmMain;
 import screen.SelectMusicPanel;
 import screen.SelectNotePanel;
 
 public class BMS {
-	boolean datafield = false;//파싱부분이 데이터필드인지
+	boolean datafield = false;// 파싱부분이 데이터필드인지
 
-	//bms 파싱해서 beats(노트) 초기화
+	private List<String> noteAnswer = null;
+
+	private void initAnswer() {
+		BufferedReader br = null;
+
+		noteAnswer = new ArrayList<String>();
+		try {
+			br = new BufferedReader(new FileReader("answerWordList.txt"));
+			String s;
+
+			while ((s = br.readLine()) != null) {
+				noteAnswer.add(s);
+			}
+			br.close();
+		} catch (IOException e) {
+
+		}
+	}
+
+	// bms 파싱해서 beats(노트) 초기화
 	public ArrayList<Beat> initBeat(ArrayList<Beat> beats, String bmsName) {
-		
+		initAnswer();
 		beats = new ArrayList<Beat>();
 		int startTime = -3300;
 
@@ -36,8 +55,7 @@ public class BMS {
 		}
 
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(bmsName
-					+ ".bms"));
+			BufferedReader in = new BufferedReader(new FileReader(bmsName + ".bms"));
 			String s;
 
 			while ((s = in.readLine()) != null) {
@@ -62,34 +80,32 @@ public class BMS {
 
 						String noteType = "";
 						String noteName = "";
-						String[] noteAnswer = { "A", "G", "B", "L", "C", "O",
-								"apple", "grape", "banana", "lemon", "cherry",
-								"orange" };
+						String[] noteImage = { "A", "G", "B", "L", "C", "O" };
 
 						switch (line) {
 						case 11:
 							noteType = "short";
-							noteName = noteAnswer[0 + SelectNotePanel.chooseNote];
+							noteName = noteImage[0 + SelectNotePanel.chooseNote];
 							break;
 						case 12:
 							noteType = "short";
-							noteName = noteAnswer[2 + SelectNotePanel.chooseNote];
+							noteName = noteImage[2 + SelectNotePanel.chooseNote];
 							break;
 						case 13:
 							noteType = "short";
-							noteName = noteAnswer[4 + SelectNotePanel.chooseNote];
+							noteName = noteImage[4 + SelectNotePanel.chooseNote];
 							break;
 						case 14:
 							noteType = "long";
-							noteName = noteAnswer[6 + SelectNotePanel.chooseNote];
+							noteName = noteImage[0 + SelectNotePanel.chooseNote];
 							break;
 						case 15:
 							noteType = "long";
-							noteName = noteAnswer[8 + SelectNotePanel.chooseNote];
+							noteName = noteImage[2 + SelectNotePanel.chooseNote];
 							break;
 						case 18:
 							noteType = "long";
-							noteName = noteAnswer[10 + SelectNotePanel.chooseNote];
+							noteName = noteImage[4 + SelectNotePanel.chooseNote];
 							break;
 
 						}
@@ -105,11 +121,20 @@ public class BMS {
 								int a = (index + 1) / 2 + add * 8;
 
 								int timing = madiOfNote * 8 + a;
-								beats.add(new Beat(startTime + gap * timing,
-										noteType, noteName));
+
+								String answer = "";
+								if (noteType.equals("short")) {
+									int answerRandom = (int) (Math.random() * noteAnswer.size());
+									answer = String.valueOf((char)((int)'A'+answerRandom));
+								} else {
+									int answerRandom = (int) (Math.random() * noteAnswer.size());
+									answer = noteAnswer.get(answerRandom);
+
+								}
+
+								beats.add(new Beat(startTime + gap * timing, noteType, noteName, answer));
 								parseNote = parseNote.substring(index + 1);
 								add++;
-						
 
 							}
 
@@ -121,8 +146,19 @@ public class BMS {
 								int a = (index + 1) / 2 + add * 4;
 
 								int timing = madiOfNote * 8 + a;
-								beats.add(new Beat(startTime + gap * timing,
-										noteType, noteName));
+								String answer = "";
+								if (noteType.equals("short")) {
+									int answerRandom = (int) (Math.random() * noteAnswer.size());
+									answer = String.valueOf((char)((int)'A'+answerRandom));									
+								}
+								else {
+									int answerRandom = (int) (Math.random() * noteAnswer.size());
+									answer = noteAnswer.get(answerRandom);
+
+								}
+
+								beats.add(new Beat(startTime + gap * timing, noteType, noteName, answer));
+
 								parseNote = parseNote.substring(index + 1);
 								add++;
 							}
@@ -133,8 +169,18 @@ public class BMS {
 							while ((index = parseNote.indexOf("1")) != -1) {
 								int a = (index + 1) / 2 + add * 2;
 								int timing = madiOfNote * 8 + a;
-								beats.add(new Beat(startTime + gap * timing,
-										noteType, noteName));
+								String answer = "";
+								if (noteType.equals("short")) {
+									int answerRandom = (int) (Math.random() * noteAnswer.size());
+									answer = String.valueOf((char)((int)'A'+answerRandom));								}
+								else {
+									int answerRandom = (int) (Math.random() * noteAnswer.size());
+									answer = noteAnswer.get(answerRandom);
+
+								}
+
+								beats.add(new Beat(startTime + gap * timing, noteType, noteName, answer));
+
 								parseNote = parseNote.substring(index + 1);
 								add++;
 							}
@@ -143,8 +189,18 @@ public class BMS {
 							while ((index = parseNote.indexOf("1")) != -1) {
 								int a = (index + 1 + add) / 2;
 								int timing = madiOfNote * 8 + a;
-								beats.add(new Beat(startTime + gap * timing,
-										noteType, noteName));
+								String answer = "";
+								if (noteType.equals("short")) {
+									int answerRandom = (int) (Math.random() * noteAnswer.size());
+									answer = String.valueOf((char)((int)'A'+answerRandom));								}
+								else {
+									int answerRandom = (int) (Math.random() * noteAnswer.size());
+									answer = noteAnswer.get(answerRandom);
+
+								}
+
+								beats.add(new Beat(startTime + gap * timing, noteType, noteName, answer));
+
 								parseNote = parseNote.substring(index + 1);
 								add += index + 1;
 							}
@@ -162,4 +218,5 @@ public class BMS {
 		}
 		return beats;
 	}
+
 }

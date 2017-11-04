@@ -353,7 +353,8 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 			isGameScreen = true;
 			isResultScreen = false;
 
-			gameStart(SelectMusicPanel.songIndex);// 선택한 곡 번호 -->게임 시작
+			gameStart(SelectMusicPanel.songIndex,gamePanel);// 선택한 곡 번호 -->게임 시작
+		
 		} else if (panelName.equals("resultPanel")) {
 			getContentPane().remove(nowPanel);
 			nowPanel = new ResultPanel(this);
@@ -371,12 +372,12 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 		}
 	}
 
-	public void gameStart(int selected) {//게임 시작 메서드
+	public void gameStart(int selected,GamePanel panel) {//게임 시작 메서드
 		this.requestFocus(true);// 키보드이벤트가 항상 정확히 캐치할 수 있게
 
 		game = new Game(this, SelectMusicPanel.trackList.get(selected)
 				.getTitleName(), SelectMusicPanel.trackList.get(selected)
-				.getGameMusic());
+				.getGameMusic(),panel);
 		game.start();
 	}
 
@@ -386,6 +387,7 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 			return;
 		}
 		input += KeyEvent.getKeyText(e.getKeyCode());
+		System.out.println(input);
 		game.press();
 	}
 
