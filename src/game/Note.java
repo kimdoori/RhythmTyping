@@ -21,13 +21,11 @@ public class Note extends Thread {
 	private int x = 580 - (1000 / RhythmMain.SLEEP_TIME * RhythmMain.NOTE_SPEED)
 			* RhythmMain.REACH_TIME, y=350; // 생성될때 x축과 y축
 
-	private GamePanel panel;
 
 	private String answer;//노트답
 	private String type;//노트 종류(알파벳/ 전체)
 	private String noteType;//노트 이미지
 	
-	private JLabel answer_label= new JLabel();
 
 	private boolean proceeded = true;// 현재노트의 진행여부
 
@@ -63,19 +61,13 @@ public class Note extends Thread {
 		this.proceeded = proceeded;
 	}
 
-	public Note(String type, String noteType,String answer,GamePanel panel) {
+	public Note(String type, String noteType,String answer) {
 		this.type = type;
 		this.noteType = noteType;
 		this.answer=answer;
-		this.panel=panel;
 		noteBasicImage = new ImageIcon(RhythmMain.class.getResource("../images/note"
 				+ noteType + ".png")).getImage();
 	}
-
-	
-	
-	
-	
 
 	// 화면에 그리기
 	public void screenDraw(Graphics2D g) {
@@ -83,17 +75,13 @@ public class Note extends Thread {
 		g.setColor(new Color (10,50, 50, 50));
 		g.fillRect(x+20, y+100,10+answer.length()*10, 30);
 		g.setColor(new Color (200,255, 255, 255));
-		g.fillRect(1000, 500,200, 50);
+		g.fillRect(1000, 620,200, 50);
 
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("나눔바른고딕", Font.PLAIN, 22));
-		g.drawString(RhythmTyping.input, 1005,530);
+		g.drawString(RhythmTyping.input, 1005,650);
 		g.drawString(answer, x+20, y+120);
 		
-		
-		
-		
-
 	}
 
 	// 노트가 떨어지는 함수

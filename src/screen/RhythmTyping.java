@@ -13,11 +13,9 @@ import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import game.Game;
 import musicList.Music;
@@ -34,8 +32,9 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 	public static String[][] user;
 
 
+	
 	private Image background = new ImageIcon(
-			RhythmMain.class.getResource("../images/introBackground.jpg")).getImage();
+			getClass().getClassLoader().getResource("introBackground.jpg")).getImage();
 	
 	private Image woodStickImage = new ImageIcon(
 			RhythmMain.class.getResource("../images/woodStick.png")).getImage();
@@ -353,7 +352,7 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 			isGameScreen = true;
 			isResultScreen = false;
 
-			gameStart(SelectMusicPanel.songIndex,gamePanel);// 선택한 곡 번호 -->게임 시작
+			gameStart(SelectMusicPanel.songIndex);// 선택한 곡 번호 -->게임 시작
 		
 		} else if (panelName.equals("resultPanel")) {
 			getContentPane().remove(nowPanel);
@@ -372,12 +371,12 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 		}
 	}
 
-	public void gameStart(int selected,GamePanel panel) {//게임 시작 메서드
+	public void gameStart(int selected) {//게임 시작 메서드
 		this.requestFocus(true);// 키보드이벤트가 항상 정확히 캐치할 수 있게
 
 		game = new Game(this, SelectMusicPanel.trackList.get(selected)
 				.getTitleName(), SelectMusicPanel.trackList.get(selected)
-				.getGameMusic(),panel);
+				.getGameMusic());
 		game.start();
 	}
 

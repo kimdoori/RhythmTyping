@@ -23,7 +23,7 @@ public class BMS {
 			String s;
 
 			while ((s = br.readLine()) != null) {
-				noteAnswer.add(s);
+				noteAnswer.add(s.toUpperCase());
 			}
 			br.close();
 		} catch (IOException e) {

@@ -21,7 +21,6 @@ public class Game extends Thread {
 	
 	private RhythmTyping frame;
 
-	private GamePanel panel;
 	//판정라인
 	private Image judgementLineImage = new ImageIcon(
 			RhythmMain.class.getResource("../images/judgeLine.png")).getImage();
@@ -53,7 +52,7 @@ public class Game extends Thread {
 
 	int noteSize = 0;
 
-	public Game(RhythmTyping rhythmTyping, String titleName, String musicTitle,GamePanel panel) {
+	public Game(RhythmTyping rhythmTyping, String titleName, String musicTitle) {
 		if (introMusic != null)//introMusic이 실행중이라면 멈춘다.
 			introMusic.close();
 
@@ -62,7 +61,6 @@ public class Game extends Thread {
 		beats.clear();
 		this.titleName = titleName;
 		this.musicTitle = musicTitle;
-		this.panel=panel;
 		gameMusic = new Music(this.musicTitle, false);
 
 	}
@@ -158,7 +156,7 @@ public class Game extends Thread {
 																// getTime보다
 																// 더작다면
 				Note note = new Note(beats.get(i).getType(), beats.get(i)
-						.getNoteName(),beats.get(i).getAnswer(),panel);// 현재의 비트에서 노트이름을 얻어옴
+						.getNoteName(),beats.get(i).getAnswer());// 현재의 비트에서 노트이름을 얻어옴
 				note.start();// 노트가 떨어지게
 				noteList.add(note); // 노트 추가
 				i++; // 각각의 노트들에 하나하나 접근해서 노트를 떨어트릴수있게
@@ -190,7 +188,7 @@ public class Game extends Thread {
 			return;
 		}
 		Note note = noteList.get(0);// 하나의 노트씩 얻어내서
-		if ((RhythmTyping.input).toLowerCase().equals(note.getAnswer())
+		if ((RhythmTyping.input).toUpperCase().equals(note.getAnswer())
 				&& "long".equals(note.getType())) {
 			judgeEvent(note.judge());
 			RhythmTyping.input = "";
