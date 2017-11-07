@@ -22,22 +22,22 @@ public class LoginPanel extends JPanel {//로그인화면
 	private RhythmTyping frame;
 	
 	// 로그인 버튼
-	private ImageIcon loginButtonEnteredImage = new ImageIcon(RhythmMain.class.getResource("../images/loginButtonEntered.png"));
-	private ImageIcon loginButtonBasicImage = new ImageIcon(RhythmMain.class.getResource("../images/loginButtonBasic.png"));
+	private ImageIcon loginButtonEnteredImage = new ImageIcon(getClass().getClassLoader().getResource("loginButtonEntered.png"));
+	private ImageIcon loginButtonBasicImage = new ImageIcon(getClass().getClassLoader().getResource("loginButtonBasic.png"));
 	private JButton loginButton = new JButton(loginButtonBasicImage);
 
 	// 회원가입 버튼
 	private ImageIcon signupButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/signupButtonEntered.png"));
+			getClass().getClassLoader().getResource("signupButtonEntered.png"));
 	private ImageIcon signupButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/signupButtonBasic.png"));
+			getClass().getClassLoader().getResource("signupButtonBasic.png"));
 	private JButton signupButton = new JButton(signupButtonBasicImage);
 
 	//뒤로가기 버튼
 	private ImageIcon backButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/backButtonEntered.png"));
+			getClass().getClassLoader().getResource("backButtonEntered.png"));
 	private ImageIcon backButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/backButtonBasic.png"));
+			getClass().getClassLoader().getResource("backButtonBasic.png"));
 	private JButton backButton = new JButton(backButtonBasicImage);
 
 	private JTextField id;

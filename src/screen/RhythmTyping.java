@@ -37,40 +37,40 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 			getClass().getClassLoader().getResource("introBackground.jpg")).getImage();
 	
 	private Image woodStickImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/woodStick.png")).getImage();
+			getClass().getClassLoader().getResource("woodStick.png")).getImage();
 	private Image woodStickImage2 = new ImageIcon(
-			RhythmMain.class.getResource("../images/woodStick2.png")).getImage();
+			getClass().getClassLoader().getResource("woodStick2.png")).getImage();
 
 	private Image titleImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/title.png")).getImage();
+			getClass().getClassLoader().getResource("title.png")).getImage();
 	private Image loginImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/loginImage.png")).getImage();
+			getClass().getClassLoader().getResource("loginImage.png")).getImage();
 	private Image recordImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/recordImage.png")).getImage();
+			getClass().getClassLoader().getResource("recordImage.png")).getImage();
 	private Image selectImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/selectImage.png")).getImage();
+			getClass().getClassLoader().getResource("selectImage.png")).getImage();
 
 	private Image woodLoginImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/loginBackgroundImage.png"))
+			getClass().getClassLoader().getResource("loginBackgroundImage.png"))
 			.getImage();
 	private Image gameInfoImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/gameInfo.png")).getImage();
+			getClass().getClassLoader().getResource("gameInfo.png")).getImage();
 
 	private Image note1Image = new ImageIcon(
-			RhythmMain.class.getResource("../images/note1Image.png")).getImage();
+			getClass().getClassLoader().getResource("note1Image.png")).getImage();
 	private Image note2Image = new ImageIcon(
-			RhythmMain.class.getResource("../images/note2Image.png")).getImage();
+			getClass().getClassLoader().getResource("note2Image.png")).getImage();
 
 	
 	
 	// menuBar
 	private JLabel menuBar = new JLabel(new ImageIcon(
-			RhythmMain.class.getResource("../images/menuBar.png")));
+			getClass().getClassLoader().getResource("menuBar.png")));
 	// menuBar에 띄울 x버튼(종료버튼)
 	private ImageIcon exitButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/exitButtonEntered.png"));
+			getClass().getClassLoader().getResource("exitButtonEntered.png"));
 	private ImageIcon exitButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/exitButtonBasic.png"));
+			getClass().getClassLoader().getResource("exitButtonBasic.png"));
 	private JButton exitButton = new JButton(exitButtonBasicImage);
 
 	private int mouseX, mouseY;// 마우스의 x좌표, y좌표
@@ -111,6 +111,7 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 	public static ConnectDB connectDB = new ConnectDB();
 
 	public RhythmTyping() {
+
 		introMusic.start();// 인트로 음악 실행
 
 		setUndecorated(true); // 기본적으로 존재하는 메뉴바가 보이지 않게
@@ -192,32 +193,32 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 
 		if (isStartScreen) {// 시작화면이라면
 			background = new ImageIcon(
-					RhythmMain.class.getResource("../images/introBackground.jpg"))
+					getClass().getClassLoader().getResource("introBackground.jpg"))
 					.getImage();
 			g.drawImage(titleImage, 520, 60, null);
 			g.drawImage(woodStickImage, 200, 270, null);
 			g.drawImage(woodStickImage2, 490, 400, null);
 		} else if (isHowScreen) {//게임방법화면이라면
 			background = new ImageIcon(
-					RhythmMain.class.getResource("../images/howtoplay.png"))
+					getClass().getClassLoader().getResource("howtoplay.png"))
 					.getImage();
 
 		} else if (isLoginScreen) {//로그인화면이라면
 			background = new ImageIcon(
-					RhythmMain.class.getResource("../images/loginBackground.png"))
+					getClass().getClassLoader().getResource("loginBackground.png"))
 					.getImage();
 			g.drawImage(woodLoginImage, 340, 150, null);
 			g.drawImage(loginImage, 600, 60, null);
 
 		} else if (isRecordScreen) {//기록화면이라면
 			background = new ImageIcon(
-					RhythmMain.class.getResource("../images/loginBackground.png"))
+					getClass().getClassLoader().getResource("loginBackground.png"))
 					.getImage();
 			g.drawImage(recordImage, 580, 60, null);
 
 		} else if (isSelectScreen) {// 노래선택화면이라면
 			background = new ImageIcon(
-					RhythmMain.class.getResource("../images/selectBackground.jpg"))
+					getClass().getClassLoader().getResource("selectBackground.jpg"))
 					.getImage();
 			g.drawImage(selectImage, 600, 50, null);
 
@@ -225,21 +226,21 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 
 		} else if (isNoteScreen) {//노트선택화면이라면
 			background = new ImageIcon(
-					RhythmMain.class.getResource("../images/selectBackground.jpg"))
+					getClass().getClassLoader().getResource("selectBackground.jpg"))
 					.getImage();
 			g.drawImage(selectImage, 600, 50, null);
 
 			g.drawImage(note1Image, 200, 180, null);
 			g.drawImage(note2Image, 200, 450, null);
 		} else if (isGameScreen) {// 게임화면이라면
-			background = new ImageIcon(RhythmMain.class.getResource("../images/"
-					+ gameImage)).getImage();
+			background = new ImageIcon(getClass().getClassLoader().getResource(
+					gameImage)).getImage();
 			g.drawImage(gameInfoImage, 0, 30, null);
 			game.screenDraw(g);
 
 		} else if (isResultScreen) {// 결과화면이라면
 			background = new ImageIcon(
-					RhythmMain.class.getResource("../images/loginBackground.png"))
+					getClass().getClassLoader().getResource("loginBackground.png"))
 					.getImage();
 			g.drawImage(woodLoginImage, 340, 150, null);
 

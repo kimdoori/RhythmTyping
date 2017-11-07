@@ -3,8 +3,7 @@ package musicList;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-
-import javax.swing.ImageIcon;
+import java.io.InputStream;
 
 import javazoom.jl.player.Player;
 import rhythm.RhythmMain;
@@ -22,14 +21,18 @@ public class Music extends Thread {
 	public Music(String name, boolean isLoop) {
 		try {
 			this.isLoop = isLoop;
-			file = new File(RhythmMain.class.getResource("../music/" + name).toURI());
+			file = new File(getClass().getClassLoader().getResource(name).toURI());
 			fis = new FileInputStream(file);
+			
 			bis = new BufferedInputStream(fis);
+			
+		//	bis = new BufferedInputStream(new BufferedInputStream(new FileInputStream(name)));
+			
 			// player에 해당파일을 담는다.
 			player = new Player(bis);
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.toString());
 
 		}
 	}

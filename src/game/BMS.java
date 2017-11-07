@@ -55,7 +55,7 @@ public class BMS {
 		}
 
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(bmsName + ".bms"));
+			BufferedReader in = new BufferedReader(new FileReader("bms/"+bmsName + ".bms"));
 			String s;
 
 			while ((s = in.readLine()) != null) {

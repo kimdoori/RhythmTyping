@@ -23,10 +23,10 @@ public class Game extends Thread {
 
 	//판정라인
 	private Image judgementLineImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/judgeLine.png")).getImage();
+			getClass().getClassLoader().getResource("judgeLine.png")).getImage();
 	//노트 루트 이미지
 	private Image noteRouteImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/noteRoute.png")).getImage();
+			getClass().getClassLoader().getResource("noteRoute.png")).getImage();
 
 	//판정이미지
 	private Image judgeImage;
@@ -78,7 +78,7 @@ public class Game extends Thread {
 			Note note = noteList.get(i);
 			if (note.getX() > 1120) {
 				judgeImage = new ImageIcon(
-						RhythmMain.class.getResource("../images/judgeMiss.png"))
+						getClass().getClassLoader().getResource("judgeMiss.png"))
 						.getImage();
 				note.close();
 			}
@@ -110,13 +110,13 @@ public class Game extends Thread {
 			RhythmTyping.input = "";
 		}
 		noteRouteImage = new ImageIcon(
-				RhythmMain.class.getResource("../images/noteRoutePressed.png"))
+				getClass().getClassLoader().getResource("noteRoutePressed.png"))
 				.getImage();
 	}
 
 	public void release() {//키보드가 떼졌을 때
 		noteRouteImage = new ImageIcon(
-				RhythmMain.class.getResource("../images/noteRoute.png")).getImage();
+				getClass().getClassLoader().getResource("noteRoute.png")).getImage();
 
 	}
 
@@ -207,27 +207,27 @@ public class Game extends Thread {
 		}
 		if (judge.equals("Miss")) {
 			judgeImage = new ImageIcon(
-					RhythmMain.class.getResource("../images/judgeMiss.png"))
+					getClass().getClassLoader().getResource("judgeMiss.png"))
 					.getImage();
 		} else if (judge.equals("Late")) {
 			judgeImage = new ImageIcon(
-					RhythmMain.class.getResource("../images/judgeLate.png"))
+					getClass().getClassLoader().getResource("judgeLate.png"))
 					.getImage();
 		} else if (judge.equals("Good")) {
 			judgeImage = new ImageIcon(
-					RhythmMain.class.getResource("../images/judgeGood.png"))
+					getClass().getClassLoader().getResource("judgeGood.png"))
 					.getImage();
 		} else if (judge.equals("Great")) {
 			judgeImage = new ImageIcon(
-					RhythmMain.class.getResource("../images/judgeGreat.png"))
+					getClass().getClassLoader().getResource("judgeGreat.png"))
 					.getImage();
 		} else if (judge.equals("Perfect")) {
 			judgeImage = new ImageIcon(
-					RhythmMain.class.getResource("../images/judgePerfect.png"))
+					getClass().getClassLoader().getResource("judgePerfect.png"))
 					.getImage();
 		} else if (judge.equals("Early")) {
 			judgeImage = new ImageIcon(
-					RhythmMain.class.getResource("../images/judgeEarly.png"))
+					getClass().getClassLoader().getResource("judgeEarly.png"))
 					.getImage();
 		}
 	}

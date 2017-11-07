@@ -17,41 +17,41 @@ public class StartPanel extends JPanel {//시작화면
 
 	// 시작버튼에 넣을 이미지
 	private ImageIcon startButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/startButtonEntered.png"));
+			getClass().getClassLoader().getResource("startButtonEntered.png"));
 	private ImageIcon startButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/startButtonBasic.png"));
+			getClass().getClassLoader().getResource("startButtonBasic.png"));
 	// 시작버튼
 	private JButton startButton = new JButton(startButtonBasicImage);
 
 	// 방법버튼에 넣을 이미지
 	private ImageIcon howButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/howButtonEntered.png"));
+			getClass().getClassLoader().getResource("howButtonEntered.png"));
 	private ImageIcon howButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/howButtonBasic.png"));
+			getClass().getClassLoader().getResource("howButtonBasic.png"));
 	// 방법버튼
 	private JButton howButton = new JButton(howButtonBasicImage);
 
 	// 기록버튼에 넣을 이미지
 	private ImageIcon recordButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/recordButtonEntered.png"));
+			getClass().getClassLoader().getResource("recordButtonEntered.png"));
 	private ImageIcon recordButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/recordButtonBasic.png"));
+			getClass().getClassLoader().getResource("recordButtonBasic.png"));
 	// 기록버튼
 	private JButton recordButton = new JButton(recordButtonBasicImage);
 
 	//종료버튼
 	private ImageIcon quitButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/quitButtonEntered.png"));
+			getClass().getClassLoader().getResource("quitButtonEntered.png"));
 	private ImageIcon quitButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/quitButtonBasic.png"));
+			getClass().getClassLoader().getResource("quitButtonBasic.png"));
 	// 종료버튼
 	private JButton quitButton = new JButton(quitButtonBasicImage);
 
 	// 로그아웃버튼에 넣을 이미지
 	private ImageIcon logoutButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/logoutButtonEntered.png"));
+			getClass().getClassLoader().getResource("logoutButtonEntered.png"));
 	private ImageIcon logoutButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/logoutButtonBasic.png"));
+			getClass().getClassLoader().getResource("logoutButtonBasic.png"));
 	// 로그아웃버튼
 	private JButton logoutButton = new JButton(logoutButtonBasicImage);
 

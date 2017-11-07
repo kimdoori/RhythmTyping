@@ -26,9 +26,9 @@ public class SelectMusicPanel extends JPanel {//노래선택화면
 
 	// 뒤로가기버튼
 	private ImageIcon homeButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/homeButtonEntered.png"));
+			getClass().getClassLoader().getResource("homeButtonEntered.png"));
 	private ImageIcon homeButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/homeButtonBasic.png"));
+			getClass().getClassLoader().getResource("homeButtonBasic.png"));
 	private JButton homeButton = new JButton(homeButtonBasicImage);
 
 	//노래플레이버튼

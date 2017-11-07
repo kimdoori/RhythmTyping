@@ -22,9 +22,9 @@ public class RecordPanel extends JPanel {//기록화면
 
 	//뒤로가기 버튼
 	private ImageIcon backButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/backButtonEntered.png"));
+			getClass().getClassLoader().getResource("backButtonEntered.png"));
 	private ImageIcon backButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/backButtonBasic.png"));
+			getClass().getClassLoader().getResource("backButtonBasic.png"));
 	private JButton backButton = new JButton(backButtonBasicImage);
 
 	public RecordPanel(RhythmTyping rhythmTyping) {

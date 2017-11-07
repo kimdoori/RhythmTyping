@@ -20,12 +20,12 @@ public class ResultPanel extends JPanel {//게임결과화면
 
 	//다시시작버튼
 	private ImageIcon reButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/reButtonBasic.png"));
+			getClass().getClassLoader().getResource("reButtonBasic.png"));
 	private JButton reButton = new JButton(reButtonBasicImage);
 
 	//확인버튼
 	private ImageIcon okayButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/okayButtonBasic.png"));
+			getClass().getClassLoader().getResource("okayButtonBasic.png"));
 	private JButton okayButton = new JButton(okayButtonBasicImage);
 
 	private JLabel my_label;

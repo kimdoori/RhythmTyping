@@ -16,7 +16,7 @@ public class Note extends Thread {
 
 	//노트 기본 이미지 --> 노트 종류와 답에 따라 바꿈
 	private Image noteBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/noteBasic.png")).getImage();
+			getClass().getClassLoader().getResource("noteBasic.png")).getImage();
 	
 	private int x = 580 - (1000 / RhythmMain.SLEEP_TIME * RhythmMain.NOTE_SPEED)
 			* RhythmMain.REACH_TIME, y=350; // 생성될때 x축과 y축
@@ -65,7 +65,7 @@ public class Note extends Thread {
 		this.type = type;
 		this.noteType = noteType;
 		this.answer=answer;
-		noteBasicImage = new ImageIcon(RhythmMain.class.getResource("../images/note"
+		noteBasicImage = new ImageIcon(getClass().getClassLoader().getResource("note"
 				+ noteType + ".png")).getImage();
 	}
 

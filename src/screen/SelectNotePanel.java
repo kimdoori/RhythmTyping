@@ -21,16 +21,16 @@ public class SelectNotePanel extends JPanel {//노트선택화면
 
 	// 뒤로가기버튼
 	private ImageIcon backButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/backButtonEntered.png"));
+			getClass().getClassLoader().getResource("backButtonEntered.png"));
 	private ImageIcon backButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/backButtonBasic.png"));
+			getClass().getClassLoader().getResource("backButtonBasic.png"));
 	private JButton backButton = new JButton(backButtonBasicImage);
 
 	//오케이버튼
 	private ImageIcon okayButtonEnteredImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/okayButtonEntered.png"));
+			getClass().getClassLoader().getResource("okayButtonEntered.png"));
 	private ImageIcon okayButtonBasicImage = new ImageIcon(
-			RhythmMain.class.getResource("../images/okayButtonBasic.png"));
+			getClass().getClassLoader().getResource("okayButtonBasic.png"));
 	private JButton okayButton = new JButton(okayButtonBasicImage);
 
 	
