@@ -21,14 +21,10 @@ public class Music extends Thread {
 	public Music(String name, boolean isLoop) {
 		try {
 			this.isLoop = isLoop;
+			
 			file = new File(getClass().getClassLoader().getResource(name).toURI());
 			fis = new FileInputStream(file);
-			
 			bis = new BufferedInputStream(fis);
-			
-		//	bis = new BufferedInputStream(new BufferedInputStream(new FileInputStream(name)));
-			
-			// player에 해당파일을 담는다.
 			player = new Player(bis);
 
 		} catch (Exception e) {

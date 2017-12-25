@@ -61,7 +61,7 @@ public class Game extends Thread {
 		beats.clear();
 		this.titleName = titleName;
 		this.musicTitle = musicTitle;
-		gameMusic = new Music(this.musicTitle, false);
+		gameMusic = new Music("music/"+this.musicTitle, false);
 
 	}
 
@@ -128,7 +128,7 @@ public class Game extends Thread {
 	public void close() {// close
 		gameMusic.close();
 		this.interrupt();
-		introMusic = new Music("Mr_Turtle.mp3", true);//intro 孤流 角青
+		introMusic = new Music("music/Mr_Turtle.mp3", true);//intro 孤流 角青
 		introMusic.start();
 
 	}

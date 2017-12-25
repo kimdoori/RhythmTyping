@@ -72,14 +72,13 @@ public class Note extends Thread {
 	// 화면에 그리기
 	public void screenDraw(Graphics2D g) {
 		g.drawImage(noteBasicImage, x, y, null);
+		
 		g.setColor(new Color (10,50, 50, 50));
 		g.fillRect(x+20, y+100,10+answer.length()*10, 30);
-		g.setColor(new Color (200,255, 255, 255));
-		g.fillRect(1000, 620,200, 50);
-
+		
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("나눔바른고딕", Font.PLAIN, 22));
-		g.drawString(RhythmTyping.input, 1005,650);
+		g.drawString(RhythmTyping.input, 1005,648);
 		g.drawString(answer, x+20, y+120);
 		
 	}

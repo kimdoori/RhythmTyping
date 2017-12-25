@@ -62,7 +62,8 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 			getClass().getClassLoader().getResource("note2Image.png")).getImage();
 
 	
-	
+	private Image typingBackground = new ImageIcon(
+		getClass().getClassLoader().getResource("typingBackground.png")).getImage();
 	// menuBar
 	private JLabel menuBar = new JLabel(new ImageIcon(
 			getClass().getClassLoader().getResource("menuBar.png")));
@@ -95,7 +96,7 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 	public SelectMusicPanel selectMusicPanel;// 노래선택 패널
 	public GamePanel gamePanel;// 게임 패널
 	public ResultPanel resultPanel;
-	Music introMusic = new Music("Mr_Turtle.mp3", true);// 인트로 음악
+	Music introMusic = new Music("music/Mr_Turtle.mp3", true);// 인트로 음악
 	
 	
 	private String gameImage = "";
@@ -200,7 +201,7 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 			g.drawImage(woodStickImage2, 490, 400, null);
 		} else if (isHowScreen) {//게임방법화면이라면
 			background = new ImageIcon(
-					getClass().getClassLoader().getResource("howtoplay.png"))
+					getClass().getClassLoader().getResource("howToPlay.png"))
 					.getImage();
 
 		} else if (isLoginScreen) {//로그인화면이라면
@@ -236,6 +237,8 @@ public class RhythmTyping extends JFrame implements KeyListener {//기본프레임
 			background = new ImageIcon(getClass().getClassLoader().getResource(
 					gameImage)).getImage();
 			g.drawImage(gameInfoImage, 0, 30, null);
+			g.drawImage(typingBackground,1000,580,null);
+
 			game.screenDraw(g);
 
 		} else if (isResultScreen) {// 결과화면이라면

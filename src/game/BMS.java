@@ -1,11 +1,15 @@
 package game;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javazoom.jl.player.Player;
 import screen.SelectMusicPanel;
 import screen.SelectNotePanel;
 
@@ -19,14 +23,19 @@ public class BMS {
 
 		noteAnswer = new ArrayList<String>();
 		try {
-			br = new BufferedReader(new FileReader("answerWordList.txt"));
+			
+			File file = new File(getClass().getClassLoader().getResource("bms/answerWordList.txt").toURI());
+			
+			
+			
+			br = new BufferedReader(new FileReader(file));
 			String s;
 
 			while ((s = br.readLine()) != null) {
 				noteAnswer.add(s.toUpperCase());
 			}
 			br.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 
 		}
 	}
@@ -55,7 +64,10 @@ public class BMS {
 		}
 
 		try {
-			BufferedReader in = new BufferedReader(new FileReader("bms/"+bmsName + ".bms"));
+			//TODO: 워크스페이스에서 실행 시 bms/ 지워야함
+			File file = new File(getClass().getClassLoader().getResource("bms/"+bmsName + ".bms").toURI());
+
+			BufferedReader in = new BufferedReader(new FileReader(file));
 			String s;
 
 			while ((s = in.readLine()) != null) {
@@ -212,7 +224,7 @@ public class BMS {
 				}
 			}
 			in.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.err.println(e); // 에러가 있다면 메시지 출력
 			System.exit(1);
 		}
